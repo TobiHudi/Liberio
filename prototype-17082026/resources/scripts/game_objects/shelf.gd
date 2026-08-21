@@ -3,16 +3,31 @@ extends InventoryBase
 @export var allowed_item : String
 @export var bonus_time : float
 @export var penalty_time : float
+@export var clear_shelf_time : float
+
+var timer : Timer = Timer.new()
+var label : Label = Label.new()
 
 func _ready() -> void:
+	
 	super._ready()
 	can_replace_item_slot = false
 	can_take_item_out_of_slot = false
 	for slot in slot_container.get_children():
 		if slot is TextureButton:
-			slot.button_down.connect(check_shelf_status.bind(slot))
+			slot.button_down.connect(check_shelf_status)
+	timer.one_shot = true
+	add_child(timer)
+	
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	slot_container.get_parent().add_child(label)
+	slot_container.get_parent().move_child(label, label.get_index() - 1)
 
-func check_shelf_status(_slot : TextureButton) -> void:
+func _process(delta: float) -> void:
+	if !timer.is_stopped():
+		label.text = str("%.0f" % timer.time_left)
+
+func check_shelf_status() -> void:
 	#Implementiere Partikel Effekte für erfolgreiches platzieren von Slot.
 	var slots_filled : int = 0
 	for shelf_slot in slot_container.get_children():
@@ -21,6 +36,16 @@ func check_shelf_status(_slot : TextureButton) -> void:
 			#print_debug(slots_filled)
 			
 	if slots_filled == inventory_slots:
+		
+		var tweeny_pop : Tween = create_tween()
+		tweeny_pop.set_loops()
+		tweeny_pop.tween_property(slot_container, "modulate", Color(1, 1, 1, 0), 0.2).set_ease(Tween.EASE_IN)
+		tweeny_pop.tween_property(slot_container, "modulate", Color(1, 1, 1, 1), 0.2).set_ease(Tween.EASE_OUT)
+		
+		timer.start(clear_shelf_time)
+		await timer.timeout
+		label.text = ""
+		tweeny_pop.kill()
 		for shelf_slot in slot_container.get_children():
 			if shelf_slot is TextureButton:
 				

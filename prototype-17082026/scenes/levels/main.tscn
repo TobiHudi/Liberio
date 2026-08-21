@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://jjyjja3nq51a"]
+
+[ext_resource type="PackedScene" uid="uid://cgtxf62ms35px" path="res://scenes/game_objects/shelf.tscn" id="1_2vj2h"]
+[ext_resource type="PackedScene" uid="uid://ciu7p1oxta24x" path="res://scenes/game_objects/trashcan.tscn" id="1_b6bv0"]
+[ext_resource type="PackedScene" uid="uid://cj4ehn2aumqg4" path="res://scenes/ui/gameplay_ui.tscn" id="1_u81e1"]
+[ext_resource type="PackedScene" uid="uid://b3kga8ig37kws" path="res://scenes/game_logic/item_randomizer.tscn" id="2_y0acb"]
+[ext_resource type="PackedScene" uid="uid://bbeoo854o7kyc" path="res://scenes/player/hand.tscn" id="3_y0acb"]
+[ext_resource type="PackedScene" uid="uid://by7u104iour6e" path="res://scenes/player/inventory.tscn" id="4_j4d2a"]
+
+[node name="main" type="Control" unique_id=1552514051]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Trashcan" parent="." unique_id=1680512811 instance=ExtResource("1_b6bv0")]
+layout_mode = 1
+
+[node name="ItemRandomizer" parent="." unique_id=70979117 instance=ExtResource("2_y0acb")]
+layout_mode = 1
+offset_top = -63.0
+offset_bottom = -63.0
+
+[node name="Shelf" parent="." unique_id=934612129 instance=ExtResource("1_2vj2h")]
+layout_mode = 1
+offset_top = 119.0
+offset_bottom = 119.0
+allowed_item = "bubi"
+bonus_time = 10.0
+penalty_time = 1.0
+inventory_slots = 10
+
+[node name="Hand" parent="." unique_id=713864274 instance=ExtResource("3_y0acb")]
+layout_mode = 1
+path_to_textures = "res://assets/textures/products/"
+
+[node name="Inventory" parent="." unique_id=1592999086 instance=ExtResource("4_j4d2a")]
+layout_mode = 1
+
+[node name="GameplayUi" parent="." unique_id=375697967 instance=ExtResource("1_u81e1")]

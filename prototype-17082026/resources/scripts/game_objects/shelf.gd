@@ -1,12 +1,13 @@
 extends InventoryBase
 
-@export var allowed_item : String
 @export var bonus_time : float
 @export var penalty_time : float
 @export var clear_shelf_time : float
 
+var allowed_item : String
 var timer : Timer = Timer.new()
 var label : Label = Label.new()
+var item_picture : TextureRect = TextureRect.new()
 
 func _ready() -> void:
 	
@@ -23,7 +24,7 @@ func _ready() -> void:
 	slot_container.get_parent().add_child(label)
 	slot_container.get_parent().move_child(label, label.get_index() - 1)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if !timer.is_stopped():
 		label.text = str("%.0f" % timer.time_left)
 
@@ -33,22 +34,32 @@ func check_shelf_status() -> void:
 	for shelf_slot in slot_container.get_children():
 		if shelf_slot is TextureButton && shelf_slot.get_meta("item_id") == allowed_item:
 			slots_filled += 1
-			#print_debug(slots_filled)
 			
 	if slots_filled == inventory_slots:
+		#Spielt die "pulse" animation, wenn das Regal voll ist.
+		var tweeny_pulse : Tween = create_tween()
+		tweeny_pulse.set_loops()
+		tweeny_pulse.tween_property(slot_container, "modulate", Color(1, 1, 1, 0), 0.2).set_ease(Tween.EASE_IN)
+		tweeny_pulse.tween_property(slot_container, "modulate", Color(1, 1, 1, 1), 0.2).set_ease(Tween.EASE_OUT)
 		
-		var tweeny_pop : Tween = create_tween()
-		tweeny_pop.set_loops()
-		tweeny_pop.tween_property(slot_container, "modulate", Color(1, 1, 1, 0), 0.2).set_ease(Tween.EASE_IN)
-		tweeny_pop.tween_property(slot_container, "modulate", Color(1, 1, 1, 1), 0.2).set_ease(Tween.EASE_OUT)
-		
+		#Startet den Timer für das Zurücksetzen des Regals
 		timer.start(clear_shelf_time)
 		await timer.timeout
+		
+		#Setzt das gewünschte Item vom Regal und ladet die Textur.
+		allowed_item = ResourceTable.items.pick_random()
+		var full_path = path_to_textures.path_join(allowed_item)
+		item_picture.texture = load(full_path)
+		
+		#Setzt den Label Text + Entfernt den Pulse Effekt.
 		label.text = ""
-		tweeny_pop.kill()
+		tweeny_pulse.kill()
+		
+		#Sucht Alle vorhandenen Slots.
 		for shelf_slot in slot_container.get_children():
 			if shelf_slot is TextureButton:
 				
+				#Führt eine Animation aus und setzt die Item ID zurück und aktuallisiert die UI :P
 				shelf_slot.pivot_offset = shelf_slot.size / 2
 				var tweeny_out = create_tween()
 				tweeny_out.tween_property(shelf_slot, "scale", Vector2.ZERO, 0.05)
@@ -62,11 +73,11 @@ func check_shelf_status() -> void:
 				
 				GameManager.game_timer += bonus_time
 				
-		print_debug("ALL SLOTS FILLED!")
-		
+		print_debug("ALLE SLOTS BEFÜLLT :D")
+
 func on_item_accept(item_id : String, _index : int) -> bool:
 	return item_id == allowed_item
-	
+
 func on_item_failure(_item_id : String, _index : int) -> void:
 	GameManager.game_timer -= penalty_time
 	print_debug("Grrrr... No " + allowed_item.capitalize() + " no deal!")

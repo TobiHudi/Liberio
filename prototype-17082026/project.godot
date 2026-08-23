@@ -19,6 +19,7 @@ config/features=PackedStringArray("4.7", "GL Compatibility")
 EventBus="*uid://clql50oxupkh6"
 GameManager="*uid://dnkxfcp664mrr"
 CheatScript="*uid://befbmafxc8gqh"
+ResourceTable="*uid://b3rx8ttu0jlqm"
 
 [display]
 

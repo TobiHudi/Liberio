@@ -47,9 +47,9 @@ func check_shelf_status() -> void:
 		await timer.timeout
 		
 		#Setzt das gewünschte Item vom Regal und ladet die Textur.
-		allowed_item = ResourceTable.items.pick_random()
-		var full_path = path_to_textures.path_join(allowed_item)
-		item_picture.texture = load(full_path)
+		#allowed_item = ResourceTable.items.pick_random()
+		#var full_path = path_to_textures.path_join(allowed_item)
+		#item_picture.texture = load(full_path)
 		
 		#Setzt den Label Text + Entfernt den Pulse Effekt.
 		label.text = ""
@@ -59,18 +59,13 @@ func check_shelf_status() -> void:
 		for shelf_slot in slot_container.get_children():
 			if shelf_slot is TextureButton:
 				
-				#Führt eine Animation aus und setzt die Item ID zurück und aktuallisiert die UI :P
-				shelf_slot.pivot_offset = shelf_slot.size / 2
-				var tweeny_out = create_tween()
-				tweeny_out.tween_property(shelf_slot, "scale", Vector2.ZERO, 0.05)
-				await tweeny_out.finished
+				tween_animation(shelf_slot, AnimationState.IN)
+				await EventBus.animation_finished
 				
 				shelf_slot.set_meta("item_id", "")
-				update_slot_ui(shelf_slot)
+				update_slot(shelf_slot)
 				
-				var tweeny_in : Tween = create_tween()
-				tweeny_in.tween_property(shelf_slot, "scale", Vector2.ONE, 0.05)
-				
+				tween_animation(shelf_slot, AnimationState.OUT)
 				GameManager.game_timer += bonus_time
 				
 		print_debug("ALLE SLOTS BEFÜLLT :D")

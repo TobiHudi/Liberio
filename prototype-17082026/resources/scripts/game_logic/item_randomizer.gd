@@ -13,7 +13,7 @@ func _ready() -> void:
 			add_child(timer)
 			slot.button_down.connect(spawn_new_item.bind(slot, timer))
 			slot.set_meta("item_id", to_spawn.pick_random())
-			update_slot_ui(slot)
+			update_slot(slot)
 
 func spawn_new_item(slot : TextureButton, timer : Timer) -> void:
 	if !timer.is_stopped():

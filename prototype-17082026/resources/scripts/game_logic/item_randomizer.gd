@@ -1,6 +1,6 @@
 extends InventoryBase
 
-var to_spawn : Array[String] = ["bubi", "meister_poppa", "stinky"]
+var to_spawn : Array[String] = ResourceTable.ITEMS
 
 func _ready() -> void:
 	super._ready()

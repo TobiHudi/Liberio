@@ -25,6 +25,7 @@ func set_up_and_create_slots() -> void:
 		var texture_button : TextureButton = TextureButton.new() 
 		texture_button.set_meta("item_id", "") #Kreiert eine "ID" für den Slot
 		texture_button.texture_normal = empty_slot_texture
+		#texture_button.set_size(Vector2(64, 64), true)
 		slot_container.add_child(texture_button)
 		#Bindet die Pick Up funktion an den Button und gibt für die Pick Up funktion den TextureButton und die Slot Nr. weiter.
 		texture_button.button_down.connect(pick_up_and_place_item.bind(texture_button, slot)) 
@@ -32,8 +33,6 @@ func set_up_and_create_slots() -> void:
 		texture_button.pivot_offset = texture_button.size / 2 #Zentriert den Pivot vom Slot (Nur für die Anim.)
 		#print_debug("Slot kreiert!")
 
-#Diese zwei funktionen aktualisieren den Slot.
-#ToDo -> Custom Tooltip!
 func update_slot(slot : TextureButton):
 	tween_animation(slot, AnimationState.IN)
 	await EventBus.animation_finished
@@ -44,7 +43,7 @@ func update_slot_ui(slot : TextureButton) -> void:
 	var current_item_id = get_slot_id(slot)
 	
 	if current_item_id != "":
-		var full_path = path_to_textures.path_join(current_item_id + ".png")
+		var full_path = get_full_slot_texture_path(slot)
 		
 		if ResourceLoader.exists(full_path):
 			slot.texture_normal = load(full_path)
@@ -63,12 +62,12 @@ func pick_up_and_place_item(slot : TextureButton, index : int) -> void:
 	var selected_item : String = get_selected_item()
 	var slot_id : String = get_slot_id(slot)
 	
-	if selected_item.is_empty() && !slot_id.is_empty(): take_item(slot)
+	if selected_item.is_empty() && !slot_id.is_empty(): take_item(slot, index)
 	elif slot_id.is_empty() && !selected_item.is_empty(): place_item(slot, index)
 	elif !selected_item.is_empty() && !slot_id.is_empty(): replace_item(slot, index)
-	else: print_debug("Hand ist Leer")
+	else: on_item_failure(slot, index)
 
-func take_item(slot : TextureButton) -> void:
+func take_item(slot : TextureButton, index : int) -> void:
 	var old_slot_id : String = get_slot_id(slot)
 	print_debug("Take Item")
 	#Item ist im Inventar und wird in die Hand gesetzt.
@@ -78,9 +77,7 @@ func take_item(slot : TextureButton) -> void:
 		update_slot(slot)
 		#print_debug("Item wurde in die Hand gesetzt: ", temp_item_id)
 	else:
-		
-		print_debug(get_slot_id(slot).capitalize() + " kann hier nicht entfernt werden.")
-
+		on_item_failure(slot, index)
 func place_item(slot : TextureButton, index : int) -> void:
 	if get_selected_item() != "" && get_slot_id(slot) == "":
 		print_debug("Place Item")
@@ -94,25 +91,23 @@ func place_item(slot : TextureButton, index : int) -> void:
 			
 				print_debug("Item wurde in das Inventar gesetzt: ", get_slot_id(slot))
 			else:
-				on_item_failure(get_selected_item(), index)
+				on_item_failure(slot, index)
 		else: 
 			print_debug("Item kann nicht in diesen Slot platziert werden.")
-
 func replace_item(slot : TextureButton, index : int) -> void:
 	var old_slot_id = get_slot_id(slot)
-	print_debug("Replace Item")
-	#Item wird getauscht.
+	#print_debug("Replace Item")
 	if can_replace_item_slot:
 		if on_item_accept(get_selected_item(), index):
 			slot.set_meta("item_id", get_selected_item())
 			GameManager.selected_item = old_slot_id #get_selected_item() nicht möglich, da die Globale Variabel bearbeitet wird.
-		
 			update_slot(slot)
 		
 			print_debug("Inventar und Hand getauscht.")
 		else:
-			on_item_failure(get_selected_item(), index)
+			on_item_failure(slot, index)
 	else:
+		on_item_failure(slot, index)
 		print_debug(get_selected_item().capitalize() + " kann nicht mit " + get_slot_id(slot).capitalize() + " getauscht werden!")
 
 func tween_animation(slot : TextureButton, animation_state: AnimationState) -> void:
@@ -131,16 +126,16 @@ func tween_animation(slot : TextureButton, animation_state: AnimationState) -> v
 			
 		AnimationState.FAILURE:
 			tween.set_loops(5)
-			tween.tween_property(slot, "modulate", Color(1, 0, 0, 1), 0.1)
-			tween.tween_property(slot, "modulate", Color(1, 1, 1, 1), 0.1)
+			
+			tween.tween_property(slot, "modulate", Color(0, 0, 0, 1), 0.1).set_ease(Tween.EASE_IN_OUT)
+			tween.tween_property(slot, "modulate", Color(1, 1, 1, 1), 0.1).set_ease(Tween.EASE_IN_OUT)
 
-#Kann bei belieben in anderen Scripts bearbeitet werden um z.b. einen gewisse ID zu verlangen, an einem bestimmten Slot.
 func on_item_accept(_item_id : String, _index : int) -> bool:
 	return true 
-	
-#Kann bei belieben in anderen Scripts bearbeitet werden um z.b. einen gewisse ID als feedback zu geben.
-func on_item_failure(item_id : String, index : int) -> void:
-	print_debug(item_id.capitalize() + " ist falsch! Slot Nr. " + str(index))
+func on_item_failure(slot : TextureButton, index : int) -> void:
+	print_debug(get_slot_id(slot).capitalize() + " ist falsch! Slot Nr. " + str(index))
+	tween_animation(slot, AnimationState.FAILURE)
 
 func get_slot_id(slot : TextureButton) -> String : return slot.get_meta("item_id")
 func get_selected_item() -> String: return GameManager.selected_item
+func get_full_slot_texture_path(slot : TextureButton) -> String: return path_to_textures.path_join(get_slot_id(slot) + ".png")

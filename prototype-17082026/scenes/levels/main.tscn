@@ -27,7 +27,6 @@ offset_bottom = -63.0
 layout_mode = 1
 offset_top = 0.0
 offset_bottom = 0.0
-allowed_item = "bubi"
 bonus_time = 10.0
 penalty_time = 1.0
 clear_shelf_time = 10.0

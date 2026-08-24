@@ -3,6 +3,7 @@ extends InventoryBase
 @export var bonus_time : float
 @export var penalty_time : float
 @export var clear_shelf_time : float
+@export var timer_and_item_container : Container
 
 var allowed_item : String
 var timer : Timer = Timer.new()
@@ -19,10 +20,11 @@ func _ready() -> void:
 			slot.button_down.connect(check_shelf_status)
 	timer.one_shot = true
 	add_child(timer)
-	
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	slot_container.get_parent().add_child(label)
-	slot_container.get_parent().move_child(label, label.get_index() - 1)
+	
+	timer_and_item_container.add_child(item_picture)
+	timer_and_item_container.add_child(label)
+	randomize_shelf()
 
 func _process(_delta: float) -> void:
 	if !timer.is_stopped():
@@ -46,10 +48,7 @@ func check_shelf_status() -> void:
 		timer.start(clear_shelf_time)
 		await timer.timeout
 		
-		#Setzt das gewünschte Item vom Regal und ladet die Textur.
-		#allowed_item = ResourceTable.items.pick_random()
-		#var full_path = path_to_textures.path_join(allowed_item)
-		#item_picture.texture = load(full_path)
+		randomize_shelf()
 		
 		#Setzt den Label Text + Entfernt den Pulse Effekt.
 		label.text = ""
@@ -72,7 +71,14 @@ func check_shelf_status() -> void:
 
 func on_item_accept(item_id : String, _index : int) -> bool:
 	return item_id == allowed_item
-
-func on_item_failure(_item_id : String, _index : int) -> void:
+func on_item_failure(slot : TextureButton, index : int) -> void:
+	print_debug(allowed_item)
+	super.on_item_failure(slot, index)
 	GameManager.game_timer -= penalty_time
-	print_debug("Grrrr... No " + allowed_item.capitalize() + " no deal!")
+
+func randomize_shelf() -> void:
+	allowed_item = ResourceTable.ITEMS.pick_random()
+	var full_path = path_to_textures.path_join(allowed_item + ".png")
+	print_debug(full_path)
+	item_picture.texture = load(full_path)
+	

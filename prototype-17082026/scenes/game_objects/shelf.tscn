@@ -5,7 +5,7 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e1orj"]
 
-[node name="Shelf" type="Control" unique_id=1567865377 node_paths=PackedStringArray("slot_container")]
+[node name="Shelf" type="Control" unique_id=1567865377 node_paths=PackedStringArray("timer_and_item_container", "slot_container")]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -19,6 +19,7 @@ offset_bottom = 13.5
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_qyujd")
+timer_and_item_container = NodePath("Panel/MarginContainer/VBoxContainer/TimerAndItemContainer")
 slot_container = NodePath("Panel/MarginContainer/VBoxContainer/GridContainer")
 
 [node name="Panel" type="PanelContainer" parent="." unique_id=440837617]
@@ -56,6 +57,11 @@ theme_override_constants/margin_bottom = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer" unique_id=1841304368]
 layout_mode = 2
+
+[node name="TimerAndItemContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer" unique_id=441384942]
+layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 1
 
 [node name="GridContainer" type="GridContainer" parent="Panel/MarginContainer/VBoxContainer" unique_id=1801501143]
 layout_mode = 2

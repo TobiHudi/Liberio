@@ -3,12 +3,14 @@
 class_name InventoryBase
 extends Node
 
-@export var slot_container : Container
 
 @export var inventory_slots : int = 5
+@export var inventory_columns : int
 var path_to_textures = "res://assets/textures/products/"
 var fallback_texture = preload("res://assets/textures/products/fallback_texture.png")
 var empty_slot_texture = preload("res://assets/textures/products/empty_slot.png")
+
+var slot_container : GridContainer = GridContainer.new()
 
 enum AnimationState {IN, OUT, FAILURE}
 
@@ -19,19 +21,25 @@ var can_take_item_out_of_slot : bool = true
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	set_up_and_create_slots()		#Kreiert die Inventar Slots
+	add_container()
 func set_up_and_create_slots() -> void:
+	slot_container.set_columns(inventory_columns)
 	for slot in range(inventory_slots):
-		#Kreiert ein TextureButton als Ghost in der Memory.
 		var texture_button : TextureButton = TextureButton.new() 
+		var texture_button_bg : TextureRect = TextureRect.new()
 		texture_button.set_meta("item_id", "") #Kreiert eine "ID" für den Slot
 		texture_button.texture_normal = empty_slot_texture
-		#texture_button.set_size(Vector2(64, 64), true)
+		texture_button_bg.texture = empty_slot_texture
 		slot_container.add_child(texture_button)
-		#Bindet die Pick Up funktion an den Button und gibt für die Pick Up funktion den TextureButton und die Slot Nr. weiter.
-		texture_button.button_down.connect(pick_up_and_place_item.bind(texture_button, slot)) 
+		texture_button.add_child(texture_button_bg)
 		
-		texture_button.pivot_offset = texture_button.size / 2 #Zentriert den Pivot vom Slot (Nur für die Anim.)
+		#Bindet die Pick Up funktion an den Button und gibt für die Pick Up funktion den TextureButton und die Slot Nr. weiter.
+		texture_button.button_down.connect(pick_up_and_place_item.bind(texture_button, slot))
+		
+		texture_button.set_size(texture_button_bg.texture.get_size(), false)
+		texture_button.set_pivot_offset(texture_button.size / 2) #Zentriert den Pivot vom Slot (Nur für die Anim.)
 		#print_debug("Slot kreiert!")
+func add_container() -> void: add_child(slot_container)		#Bearbeite mich, für Custom positionen.
 
 func update_slot(slot : TextureButton):
 	tween_animation(slot, AnimationState.IN)

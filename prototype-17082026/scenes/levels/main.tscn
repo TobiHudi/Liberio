@@ -15,28 +15,53 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Trashcan" parent="." unique_id=1680512811 instance=ExtResource("1_b6bv0")]
-layout_mode = 1
-
-[node name="ItemRandomizer" parent="." unique_id=70979117 instance=ExtResource("2_y0acb")]
-layout_mode = 1
-offset_top = -63.0
-offset_bottom = -63.0
-
 [node name="Shelf" parent="." unique_id=934612129 instance=ExtResource("1_2vj2h")]
 layout_mode = 1
-offset_top = 0.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -0.5
+offset_top = -13.5
+offset_right = 0.5
 offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
 bonus_time = 10.0
 penalty_time = 1.0
 clear_shelf_time = 10.0
 inventory_slots = 12
+inventory_columns = 3
 
 [node name="Hand" parent="." unique_id=713864274 instance=ExtResource("3_y0acb")]
 layout_mode = 1
 path_to_textures = "res://assets/textures/products/"
 
 [node name="Inventory" parent="." unique_id=1592999086 instance=ExtResource("4_j4d2a")]
+visible = false
 layout_mode = 1
+inventory_columns = 1
 
 [node name="GameplayUi" parent="." unique_id=375697967 instance=ExtResource("1_u81e1")]
+
+[node name="Trashcan" parent="." unique_id=1680512811 instance=ExtResource("1_b6bv0")]
+layout_mode = 1
+offset_left = -20.0
+offset_right = 20.0
+empty_trash_time = 2.0
+inventory_columns = 2
+
+[node name="ItemRandomizer" parent="." unique_id=70979117 instance=ExtResource("2_y0acb")]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+respawn_time = 2.0
+inventory_columns = 10

@@ -13,8 +13,12 @@ var item_picture : TextureRect = TextureRect.new()
 func _ready() -> void:
 	
 	super._ready()
+	
+	slot_container.columns = 3
+	
 	can_replace_item_slot = false
 	can_take_item_out_of_slot = false
+	
 	for slot in slot_container.get_children():
 		if slot is TextureButton:
 			slot.button_down.connect(check_shelf_status)
@@ -25,6 +29,9 @@ func _ready() -> void:
 	timer_and_item_container.add_child(item_picture)
 	timer_and_item_container.add_child(label)
 	randomize_shelf()
+
+func add_container() -> void:
+	$CenterContainer/Panel/MarginContainer/VBoxContainer.add_child(slot_container)
 
 func _process(_delta: float) -> void:
 	if !timer.is_stopped():
@@ -78,6 +85,7 @@ func on_item_failure(slot : TextureButton, index : int) -> void:
 
 func randomize_shelf() -> void:
 	allowed_item = ResourceTable.ITEMS.pick_random()
+	CheatScript.current_cheat_item = allowed_item
 	var full_path = path_to_textures.path_join(allowed_item + ".png")
 	print_debug(full_path)
 	item_picture.texture = load(full_path)

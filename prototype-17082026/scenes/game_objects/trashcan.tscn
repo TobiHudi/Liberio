@@ -2,29 +2,16 @@
 
 [ext_resource type="Script" uid="uid://dpxg6ir7pxi10" path="res://resources/scripts/game_objects/trashcan.gd" id="1_o3amj"]
 
-[node name="Trashcan" type="Control" unique_id=1680512811 node_paths=PackedStringArray("slot_container")]
+[node name="Trashcan" type="Control" unique_id=1680512811]
 layout_mode = 3
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -242.0
-offset_top = -48.0
-offset_right = -242.0
-offset_bottom = -48.0
 grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("1_o3amj")
 empty_trash_time = 1.0
-slot_container = NodePath("GridContainer")
 inventory_slots = 2
-
-[node name="GridContainer" type="GridContainer" parent="." unique_id=1801501143]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-columns = 5
+inventory_columns = 1

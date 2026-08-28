@@ -49,14 +49,15 @@ func add_trashcan_properties(trashcan_timer : Timer, trashcan_progress_bar : Pro
 	trashcan_timer.one_shot = true
 
 func trash_item(slot : TextureButton, trashcan_timer : Timer, trashcan_progress_bar : ProgressBar) -> void:
+	if !trashcan_timer.is_stopped():
+		return
+		
 	if get_slot_id(slot) != "":
-		slot.set_mouse_filter(Control.MOUSE_FILTER_IGNORE)
 		trashcan_timer.start(empty_trash_time)
 		while trashcan_timer.time_left >= 0.01:
 			trashcan_progress_bar.value = empty_trash_time - trashcan_timer.time_left
 			await get_tree().process_frame
 		await trashcan_timer.timeout
-		slot.set_mouse_filter(Control.MOUSE_FILTER_PASS)
 		trashcan_progress_bar.value = 0
 		slot.set_meta("item_id", "")
 		tween_animation(slot, AnimationState.IN)

@@ -1,24 +1,54 @@
 [gd_scene format=3 uid="uid://cgtxf62ms35px"]
 
 [ext_resource type="Script" uid="uid://ephmtd5bhh61" path="res://resources/scripts/game_objects/shelf.gd" id="1_qyujd"]
+[ext_resource type="Texture2D" uid="uid://buvre36ak84i0" path="res://assets/textures/debug/debug_border.png" id="2_e1orj"]
 
-[node name="Shelf" type="Control" unique_id=1680512811 node_paths=PackedStringArray("slot_container")]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e1orj"]
+
+[node name="Shelf" type="Control" unique_id=1567865377 node_paths=PackedStringArray("timer_and_item_container")]
 layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
+offset_right = 1.0
+offset_bottom = 27.0
 script = ExtResource("1_qyujd")
-slot_container = NodePath("GridContainer")
+timer_and_item_container = NodePath("CenterContainer/Panel/MarginContainer/VBoxContainer/TimerAndItemContainer")
 
-[node name="GridContainer" type="GridContainer" parent="." unique_id=1801501143]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-columns = 5
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1334496777]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+use_top_left = true
+
+[node name="Panel" type="PanelContainer" parent="CenterContainer" unique_id=440837617]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_e1orj")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CenterContainer/Panel" unique_id=1460978665]
+layout_mode = 2
+texture = ExtResource("2_e1orj")
+region_rect = Rect2(1, 2, 29, 28)
+patch_margin_left = 7
+patch_margin_top = 7
+patch_margin_right = 7
+patch_margin_bottom = 7
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/Panel" unique_id=1048120334]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/Panel/MarginContainer" unique_id=1841304368]
+layout_mode = 2
+
+[node name="TimerAndItemContainer" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=441384942]
+layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=1801501143]
+layout_mode = 2
+columns = 3

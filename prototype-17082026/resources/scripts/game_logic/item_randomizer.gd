@@ -4,7 +4,8 @@ extends InventoryBase
 var to_spawn : Array[String] = ResourceTable.ITEMS
 var center_container : CenterContainer = CenterContainer.new()
 func _ready() -> void:
-	
+	empty_slot_texture = load("res://assets/textures/products/inventory_slot.png")
+	fallback_texture =load("res://assets/textures/products/inventory_slot.png")
 	super._ready()
 	
 	set_up_inventory()

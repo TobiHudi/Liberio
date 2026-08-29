@@ -1,7 +1,7 @@
 #Diese Klasse Erlaubt das, Überprüfen, auswechseln, aufnehmen und platzieren
 #von Items in einer Control Umgebung. game_manager und event_bus werden.
 class_name InventoryBase
-extends Node
+extends Control
 
 
 @export var inventory_slots : int = 5
@@ -20,6 +20,7 @@ var can_take_item_out_of_slot : bool = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	self.scale = Vector2(1.4, 1.4)
 	set_up_and_create_slots()		#Kreiert die Inventar Slots
 	add_container()
 func set_up_and_create_slots() -> void:

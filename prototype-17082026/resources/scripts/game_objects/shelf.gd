@@ -11,9 +11,10 @@ var label : Label = Label.new()
 var item_picture : TextureRect = TextureRect.new()
 
 func _ready() -> void:
-	
+	empty_slot_texture = load("res://assets/textures/products/shelf_slot.png")
+	fallback_texture =load("res://assets/textures/products/shelf_slot.png")
 	super._ready()
-	
+
 	slot_container.columns = 3
 	
 	can_replace_item_slot = false

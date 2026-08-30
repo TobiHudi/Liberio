@@ -15,23 +15,45 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Shelf" parent="." unique_id=934612129 instance=ExtResource("1_2vj2h")]
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=833452848]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -0.5
-offset_top = -6.75
-offset_right = 0.5
-offset_bottom = 6.75
+offset_left = -317.815
+offset_right = 82.18701
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1.6, 1.6)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer" unique_id=906988776]
+layout_mode = 2
+theme_override_constants/separation = 200
+
+[node name="Shelf" parent="CenterContainer/HBoxContainer" unique_id=934612129 instance=ExtResource("1_2vj2h")]
+layout_mode = 2
 bonus_time = 10.0
-penalty_time = 1.0
+penalty_time = 3.0
 clear_shelf_time = 10.0
-inventory_slots = 12
+inventory_slots = 3
+inventory_columns = 3
+
+[node name="Shelf2" parent="CenterContainer/HBoxContainer" unique_id=1567865377 instance=ExtResource("1_2vj2h")]
+layout_mode = 2
+bonus_time = 10.0
+penalty_time = 3.0
+clear_shelf_time = 10.0
+inventory_slots = 3
+inventory_columns = 3
+
+[node name="Shelf3" parent="CenterContainer/HBoxContainer" unique_id=1479152891 instance=ExtResource("1_2vj2h")]
+layout_mode = 2
+bonus_time = 10.0
+penalty_time = 3.0
+clear_shelf_time = 10.0
+inventory_slots = 3
 inventory_columns = 3
 
 [node name="Hand" parent="." unique_id=713864274 instance=ExtResource("3_y0acb")]

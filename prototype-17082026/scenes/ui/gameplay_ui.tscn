@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://cj4ehn2aumqg4"]
 
+[ext_resource type="Script" uid="uid://bu7jg56xqsbok" path="res://resources/scripts/game_logic/game_loop_manager.gd" id="1_pygfh"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bjy1c"]
 content_margin_left = 10.0
 content_margin_top = 10.0
@@ -7,7 +9,9 @@ content_margin_right = 10.0
 content_margin_bottom = 10.0
 bg_color = Color(0.24477634, 0.24477643, 0.24477628, 0.5411765)
 
-[node name="GameplayUi" type="CanvasLayer" unique_id=1990847524]
+[node name="GameplayUi" type="CanvasLayer" unique_id=1990847524 node_paths=PackedStringArray("timer_label")]
+script = ExtResource("1_pygfh")
+timer_label = NodePath("PanelContainer/Label")
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=1998063887]
 anchors_preset = 10

@@ -11,6 +11,7 @@ var label : Label = Label.new()
 var item_picture : TextureRect = TextureRect.new()
 
 func _ready() -> void:
+	self.scale = Vector2(1.6, 1.6)
 	empty_slot_texture = load("res://assets/textures/products/shelf_slot.png")
 	fallback_texture =load("res://assets/textures/products/shelf_slot.png")
 	super._ready()
@@ -73,8 +74,8 @@ func check_shelf_status() -> void:
 				update_slot(shelf_slot)
 				
 				tween_animation(shelf_slot, AnimationState.OUT)
-				GameManager.game_timer += bonus_time
 				
+		EventBus.game_timer_update.emit(bonus_time)
 		print_debug("ALLE SLOTS BEFÜLLT :D")
 
 func on_item_accept(item_id : String, _index : int) -> bool:
@@ -82,7 +83,7 @@ func on_item_accept(item_id : String, _index : int) -> bool:
 func on_item_failure(slot : TextureButton, index : int) -> void:
 	print_debug(allowed_item)
 	super.on_item_failure(slot, index)
-	GameManager.game_timer -= penalty_time
+	EventBus.game_timer_update.emit(-penalty_time)
 
 func randomize_shelf() -> void:
 	allowed_item = ResourceTable.ITEMS.pick_random()

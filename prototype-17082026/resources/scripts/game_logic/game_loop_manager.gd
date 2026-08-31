@@ -10,24 +10,26 @@ var is_timer_finished : bool = false
 func _ready() -> void:
 	EventBus.game_timer_start.connect(timer_started)
 	EventBus.game_timer_update.connect(timer_update)
+	timer_started(30)
 	
 func timer_started(new_time : float) -> void:
 	timer = new_time
-	start_timer = true
+	timer_running()
+	
 func timer_update(new_time : float) -> void: 
 	timer += new_time
-
-func _process(delta: float) -> void:
-	if start_timer:
-		timer -= delta
+func timer_running() -> void:
+	start_timer = true
+	while start_timer:
+		timer -= get_process_delta_time()
 		timer_label.text = str("%.0f" % timer)
-		print_debug(timer)
-		#GameManager.game_timer = timer
 		if timer <= 0:
-			is_timer_finished = true
-	if is_timer_finished:
-		game_finished()
+			start_timer = false
+		await get_tree().process_frame
+	game_finished()
 
 func game_finished() -> void: 
-	EventBus.game_timer_finished.emit()
-	get_tree().quit()
+	var game_over_menu = load("res://scenes/ui/game_over_menu.tscn")
+	var game_over_instance = game_over_menu.instantiate()
+	add_child(game_over_instance)
+	print_debug("Game Finished")

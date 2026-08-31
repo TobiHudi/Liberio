@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://3oma21v7gtn0"]
+
+[ext_resource type="Script" uid="uid://bkal24xxjwsyf" path="res://resources/scripts/levels/main_menu.gd" id="1_fsby3"]
+
+[node name="MainMenu" type="Control" unique_id=90050313 node_paths=PackedStringArray("start_button")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fsby3")
+start_button = NodePath("PanelContainer/MarginContainer/VBoxContainer/StartGame")
+game_dir = "res://scenes/levels/main.tscn"
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1794806733]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -29.0
+offset_right = 48.0
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=1382593764]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=664955481]
+layout_mode = 2
+
+[node name="GameName" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1461266241]
+layout_mode = 2
+text = "GAME OVER"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StartGame" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=272242014]
+layout_mode = 2
+text = "Start"

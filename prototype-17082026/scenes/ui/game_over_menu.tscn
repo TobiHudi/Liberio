@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://d84baqmlvi16"]
+
+[ext_resource type="Script" uid="uid://cc0vundxa6uev" path="res://resources/scripts/ui/game_over_menu.gd" id="1_7nx0y"]
+
+[node name="GameOverMenu" type="CanvasLayer" unique_id=1445834749 node_paths=PackedStringArray("retry_menu_button", "main_menu_button")]
+script = ExtResource("1_7nx0y")
+retry_menu_button = NodePath("PanelContainer/MarginContainer/VBoxContainer/Button")
+main_menu_button = NodePath("PanelContainer/MarginContainer/VBoxContainer/Button2")
+retry_menu_path = "res://scenes/levels/main.tscn"
+main_menu_path = "res://scenes/levels/main_menu.tscn"
+
+[node name="MouseStopper" type="Control" parent="." unique_id=1442489410]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=131767060]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -29.0
+offset_right = 48.0
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=839359290]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=1093801846]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=468712503]
+layout_mode = 2
+text = "GAME OVER"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=451224796]
+layout_mode = 2
+text = "Retry"
+
+[node name="Button2" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1262774361]
+layout_mode = 2
+text = "Main Menu"

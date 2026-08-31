@@ -1,4 +1,7 @@
 extends Node
 
+var points : int
+
 var selected_item : String
-var game_timer : float
+var current_shelf_multiplier : float
+var current_points : float

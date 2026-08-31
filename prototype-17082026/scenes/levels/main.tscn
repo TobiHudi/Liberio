@@ -2,10 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://cgtxf62ms35px" path="res://scenes/game_objects/shelf.tscn" id="1_2vj2h"]
 [ext_resource type="PackedScene" uid="uid://ciu7p1oxta24x" path="res://scenes/game_objects/trashcan.tscn" id="1_b6bv0"]
-[ext_resource type="PackedScene" uid="uid://cj4ehn2aumqg4" path="res://scenes/ui/gameplay_ui.tscn" id="1_u81e1"]
 [ext_resource type="PackedScene" uid="uid://b3kga8ig37kws" path="res://scenes/game_logic/item_randomizer.tscn" id="2_y0acb"]
 [ext_resource type="PackedScene" uid="uid://bbeoo854o7kyc" path="res://scenes/player/hand.tscn" id="3_y0acb"]
 [ext_resource type="PackedScene" uid="uid://by7u104iour6e" path="res://scenes/player/inventory.tscn" id="4_j4d2a"]
+[ext_resource type="PackedScene" uid="uid://c8qsntgu48ikm" path="res://scenes/game_logic/game_loop_manager.tscn" id="6_b6bv0"]
 
 [node name="main" type="Control" unique_id=1552514051]
 layout_mode = 3
@@ -37,7 +37,7 @@ layout_mode = 2
 bonus_time = 10.0
 penalty_time = 3.0
 clear_shelf_time = 10.0
-inventory_slots = 3
+inventory_slots = 6
 inventory_columns = 3
 
 [node name="Shelf2" parent="CenterContainer/HBoxContainer" unique_id=1567865377 instance=ExtResource("1_2vj2h")]
@@ -45,7 +45,7 @@ layout_mode = 2
 bonus_time = 10.0
 penalty_time = 3.0
 clear_shelf_time = 10.0
-inventory_slots = 3
+inventory_slots = 6
 inventory_columns = 3
 
 [node name="Shelf3" parent="CenterContainer/HBoxContainer" unique_id=1479152891 instance=ExtResource("1_2vj2h")]
@@ -53,7 +53,7 @@ layout_mode = 2
 bonus_time = 10.0
 penalty_time = 3.0
 clear_shelf_time = 10.0
-inventory_slots = 3
+inventory_slots = 6
 inventory_columns = 3
 
 [node name="Hand" parent="." unique_id=713864274 instance=ExtResource("3_y0acb")]
@@ -64,8 +64,6 @@ path_to_textures = "res://assets/textures/products/"
 visible = false
 layout_mode = 1
 inventory_columns = 1
-
-[node name="GameplayUi" parent="." unique_id=375697967 instance=ExtResource("1_u81e1")]
 
 [node name="Trashcan" parent="." unique_id=1680512811 instance=ExtResource("1_b6bv0")]
 layout_mode = 1
@@ -87,3 +85,11 @@ grow_horizontal = 2
 grow_vertical = 0
 respawn_time = 2.0
 inventory_columns = 10
+
+[node name="GameLoopManager" parent="." unique_id=739497856 instance=ExtResource("6_b6bv0")]
+layout_mode = 1
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1

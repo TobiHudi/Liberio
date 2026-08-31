@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="prototype_17082026"
-run/main_scene="uid://jjyjja3nq51a"
+run/main_scene="uid://3oma21v7gtn0"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 
 [autoload]
@@ -20,6 +20,7 @@ EventBus="*uid://clql50oxupkh6"
 GameManager="*uid://dnkxfcp664mrr"
 CheatScript="*uid://befbmafxc8gqh"
 ResourceTable="*uid://b3rx8ttu0jlqm"
+SceneManager="*uid://ds2urski53i4f"
 
 [display]
 

@@ -9,8 +9,10 @@ extends Control
 var path_to_textures = "res://assets/textures/products/"
 var fallback_texture = preload("res://assets/textures/products/fallback_texture.png")
 var empty_slot_texture = preload("res://assets/textures/products/empty_slot.png")
+var failure_texture = preload("res://assets/textures/icons/failure_cross.png")
 
 var slot_container : GridContainer = GridContainer.new()
+
 
 enum AnimationState {IN, OUT, FAILURE}
 
@@ -138,12 +140,32 @@ func tween_animation(slot : TextureButton, animation_state: AnimationState) -> v
 			
 			tween.tween_property(slot, "modulate", Color(0, 0, 0, 1), 0.1).set_ease(Tween.EASE_IN_OUT)
 			tween.tween_property(slot, "modulate", Color(1, 1, 1, 1), 0.1).set_ease(Tween.EASE_IN_OUT)
-
+func create_failure_particles(slot : TextureButton) -> void:
+	var cpu_particles : CPUParticles2D
+	if slot.get_child(0) is not CPUParticles2D:
+		cpu_particles = CPUParticles2D.new()
+		var curve : Curve = Curve.new()
+		slot.add_child(cpu_particles)
+		curve.add_point(Vector2(0, 0))
+		curve.add_point(Vector2(0.1, 1))
+		curve.add_point(Vector2(0.9, 1))
+		curve.add_point(Vector2(1, 0))
+		cpu_particles.position = slot.size / 2
+		cpu_particles.amount = 1
+		cpu_particles.one_shot = true
+		cpu_particles.gravity = Vector2(0, 0)
+		cpu_particles.texture = failure_texture
+		cpu_particles.emitting = true
+		cpu_particles.set_param_curve(CPUParticles2D.PARAM_SCALE, curve)
+	else:
+		cpu_particles.emitting = true
+		
 func on_item_accept(_item_id : String, _index : int) -> bool:
 	return true 
 func on_item_failure(slot : TextureButton, index : int) -> void:
 	print_debug(get_slot_id(slot).capitalize() + " ist falsch! Slot Nr. " + str(index))
 	tween_animation(slot, AnimationState.FAILURE)
+	create_failure_particles(slot)
 
 func get_slot_id(slot : TextureButton) -> String : return slot.get_meta("item_id")
 func get_selected_item() -> String: return GameManager.selected_item

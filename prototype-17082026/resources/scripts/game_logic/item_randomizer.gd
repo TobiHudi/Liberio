@@ -6,9 +6,10 @@ var center_container : CenterContainer = CenterContainer.new()
 func _ready() -> void:
 	empty_slot_texture = load("res://assets/textures/products/inventory_slot.png")
 	fallback_texture =load("res://assets/textures/products/inventory_slot.png")
+	set_up_inventory_location()
 	super._ready()
 	
-	set_up_inventory()
+	
 	
 	can_replace_item_slot = false
 	can_place_item_in_slot = false
@@ -65,7 +66,7 @@ func spawn_new_item(slot : TextureButton, timer : Timer, progress_bar : Progress
 		update_slot_ui(slot)
 		tween_animation(slot, AnimationState.OUT)
 
-func set_up_inventory() -> void:
+func set_up_inventory_location() -> void:
 	center_container.use_top_left = true
 	await get_tree().process_frame
 	center_container.set_position(Vector2(0, -slot_container.size.y))

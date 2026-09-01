@@ -22,8 +22,9 @@ func timer_running() -> void:
 	start_timer = true
 	while start_timer:
 		timer -= get_process_delta_time()
-		timer_label.text = str("%.0f" % timer)
+		timer_label.text = str("%.1f" % timer)
 		if timer <= 0:
+			timer_label.text = "0"
 			start_timer = false
 		await get_tree().process_frame
 	game_finished()

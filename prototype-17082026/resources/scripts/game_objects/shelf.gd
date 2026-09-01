@@ -3,6 +3,7 @@ extends InventoryBase
 @export var bonus_time : float
 @export var penalty_time : float
 @export var clear_shelf_time : float
+@export var clear_shelf_loop_time : float
 @export var timer_and_item_container : Container
 
 var allowed_item : String
@@ -62,7 +63,7 @@ func check_shelf_status() -> void:
 		#Setzt den Label Text + Entfernt den Pulse Effekt.
 		label.text = ""
 		tweeny_pulse.kill()
-		
+		slot_container.modulate = Color(1, 1, 1, 1)
 		#Sucht Alle vorhandenen Slots.
 		for shelf_slot in slot_container.get_children():
 			if shelf_slot is TextureButton:
@@ -74,6 +75,8 @@ func check_shelf_status() -> void:
 				update_slot(shelf_slot)
 				
 				tween_animation(shelf_slot, AnimationState.OUT)
+				#Hier eventuell Timer als await funktion kreieren
+				printerr("SHELF NICHT VERGESSEN")
 				
 		EventBus.game_timer_update.emit(bonus_time)
 		print_debug("ALLE SLOTS BEFÜLLT :D")

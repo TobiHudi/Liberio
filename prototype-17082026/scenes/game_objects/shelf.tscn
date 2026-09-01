@@ -11,7 +11,13 @@ anchors_preset = 0
 offset_right = 1.0
 offset_bottom = 27.0
 script = ExtResource("1_qyujd")
+bonus_time = 10.0
+penalty_time = 3.0
+clear_shelf_time = 5.0
+clear_shelf_loop_time = 3.0
 timer_and_item_container = NodePath("CenterContainer/Panel/MarginContainer/VBoxContainer/TimerAndItemContainer")
+inventory_slots = 6
+inventory_columns = 3
 
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=1334496777]
 layout_mode = 0

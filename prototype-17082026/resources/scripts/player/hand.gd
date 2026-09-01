@@ -14,7 +14,6 @@ func _process(_delta: float) -> void:
 	global_position = get_global_mouse_position() + Vector2(20, 20)
 
 func update_texture() -> void:
-	
 	if tweeny and tweeny.is_valid():
 		tweeny.kill()
 		texture_rect.scale = Vector2.ONE
@@ -29,7 +28,6 @@ func update_texture() -> void:
 	else:
 		texture_rect.texture = null
 		#print_debug("Texture wird entfernt...")
-		
 
 func start_pulsing_animation() -> void:
 	tweeny = create_tween()

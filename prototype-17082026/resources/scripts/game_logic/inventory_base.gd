@@ -4,7 +4,7 @@ class_name InventoryBase
 extends Control
 
 
-@export var inventory_slots : int = 5
+@export var inventory_slots : int
 @export var inventory_columns : int
 var path_to_textures = "res://assets/textures/products/"
 var fallback_texture = preload("res://assets/textures/products/fallback_texture.png")

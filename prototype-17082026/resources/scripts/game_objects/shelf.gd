@@ -3,7 +3,7 @@ extends InventoryBase
 @export var bonus_time : float
 @export var penalty_time : float
 @export var clear_shelf_time : float
-@export var clear_shelf_loop_time : float
+@export var clear_slot_time : float
 @export var timer_and_item_container : Container
 
 var allowed_item : String
@@ -16,9 +16,7 @@ func _ready() -> void:
 	empty_slot_texture = load("res://assets/textures/products/shelf_slot.png")
 	fallback_texture =load("res://assets/textures/products/shelf_slot.png")
 	super._ready()
-
-	slot_container.columns = 3
-	
+	label.text = str("%.0f" % clear_shelf_time)
 	can_replace_item_slot = false
 	can_take_item_out_of_slot = false
 	
@@ -57,11 +55,10 @@ func check_shelf_status() -> void:
 		#Startet den Timer für das Zurücksetzen des Regals
 		timer.start(clear_shelf_time)
 		await timer.timeout
-		
 		randomize_shelf()
 		
 		#Setzt den Label Text + Entfernt den Pulse Effekt.
-		label.text = ""
+		label.text = str("%.0f" % clear_shelf_time)
 		tweeny_pulse.kill()
 		slot_container.modulate = Color(1, 1, 1, 1)
 		#Sucht Alle vorhandenen Slots.
@@ -70,14 +67,11 @@ func check_shelf_status() -> void:
 				
 				tween_animation(shelf_slot, AnimationState.IN)
 				await EventBus.animation_finished
-				
 				shelf_slot.set_meta("item_id", "")
 				update_slot(shelf_slot)
-				
 				tween_animation(shelf_slot, AnimationState.OUT)
-				#Hier eventuell Timer als await funktion kreieren
-				printerr("SHELF NICHT VERGESSEN")
 				
+				await get_tree().create_timer(clear_slot_time).timeout
 		EventBus.game_timer_update.emit(bonus_time)
 		print_debug("ALLE SLOTS BEFÜLLT :D")
 

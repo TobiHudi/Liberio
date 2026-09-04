@@ -1,6 +1,7 @@
 extends InventoryBase
 
 @export var bonus_time : float
+@export var bonus_points : int
 @export var penalty_time : float
 @export var clear_shelf_time : float
 @export var clear_slot_time : float
@@ -46,6 +47,9 @@ func check_shelf_status() -> void:
 			slots_filled += 1
 			
 	if slots_filled == inventory_slots:
+		for shelf_slot in slot_container.get_children():
+			if shelf_slot is TextureButton:
+				shelf_slot.set_mouse_filter(Control.MOUSE_FILTER_IGNORE)
 		#Spielt die "pulse" animation, wenn das Regal voll ist.
 		var tweeny_pulse : Tween = create_tween()
 		tweeny_pulse.set_loops()
@@ -70,9 +74,12 @@ func check_shelf_status() -> void:
 				shelf_slot.set_meta("item_id", "")
 				update_slot(shelf_slot)
 				tween_animation(shelf_slot, AnimationState.OUT)
+				shelf_slot.set_mouse_filter(Control.MOUSE_FILTER_STOP)
 				
 				await get_tree().create_timer(clear_slot_time).timeout
 		EventBus.game_timer_update.emit(bonus_time)
+		GameManager.player_points += bonus_points
+		
 		print_debug("ALLE SLOTS BEFÜLLT :D")
 
 func on_item_accept(item_id : String, _index : int) -> bool:

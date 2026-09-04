@@ -7,11 +7,20 @@
 
 [node name="Shelf" type="Control" unique_id=1567865377 node_paths=PackedStringArray("timer_and_item_container")]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 1.0
-offset_bottom = 27.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -0.5
+offset_top = -13.5
+offset_right = 0.5
+offset_bottom = 13.5
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_qyujd")
 bonus_time = 10.0
+bonus_points = 10
 penalty_time = 3.0
 clear_shelf_time = 5.0
 timer_and_item_container = NodePath("CenterContainer/Panel/MarginContainer/VBoxContainer/TimerAndItemContainer")
@@ -19,9 +28,14 @@ inventory_slots = 6
 inventory_columns = 2
 
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=1334496777]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
 use_top_left = true
 
 [node name="Panel" type="PanelContainer" parent="CenterContainer" unique_id=440837617]

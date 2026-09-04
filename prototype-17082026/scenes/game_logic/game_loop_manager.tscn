@@ -2,19 +2,12 @@
 
 [ext_resource type="Script" uid="uid://bu7jg56xqsbok" path="res://resources/scripts/game_logic/game_loop_manager.gd" id="1_wapyw"]
 
-[node name="GameLoopManager" type="Control" unique_id=739497856 node_paths=PackedStringArray("timer_label")]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
+[node name="GameLoopManager" type="CanvasLayer" unique_id=81422409 node_paths=PackedStringArray("timer_label", "points_label")]
 script = ExtResource("1_wapyw")
 timer_label = NodePath("Label")
+points_label = NodePath("Points")
 
 [node name="Label" type="Label" parent="." unique_id=1301277516]
-layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -23,6 +16,14 @@ offset_right = 57.0
 offset_bottom = 137.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 100
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Points" type="Label" parent="." unique_id=1925400230]
+offset_right = 114.0
+offset_bottom = 137.0
+theme_override_font_sizes/font_size = 50
 text = "10"
 horizontal_alignment = 1
 vertical_alignment = 1

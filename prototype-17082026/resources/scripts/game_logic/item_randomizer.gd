@@ -1,6 +1,8 @@
 extends InventoryBase
 
 @export var respawn_time : float
+var progress_bar_stylebox : StyleBoxFlat = preload("res://resources/data/progress_bar.tres")
+var progress_bar_stylebox_empty : StyleBoxFlat = preload("res://resources/data/empty_stylebox.tres")
 var to_spawn : Array[String] = ResourceTable.ITEMS
 var center_container : CenterContainer = CenterContainer.new()
 func _ready() -> void:
@@ -19,18 +21,18 @@ func set_up_slot() -> void:
 			var progress_bar : ProgressBar = ProgressBar.new()
 			slot.add_child(progress_bar)
 			slot.add_child(timer)
-			var new_style_fill = progress_bar.get_theme_stylebox("fill").duplicate()
-			var new_style_bg = progress_bar.get_theme_stylebox("background").duplicate()
+#			var new_style_fill = progress_bar.get_theme_stylebox("fill").duplicate()
+#			var new_style_bg = progress_bar.get_theme_stylebox("background").duplicate()
+#	
+#			new_style_fill.corner_radius_top_left = 0
+#			new_style_fill.corner_radius_top_right = 0
+#			new_style_fill.corner_radius_bottom_left = 0
+#			new_style_fill.corner_radius_bottom_right = 0
+#			new_style_fill.bg_color = Color(1, 1, 1, 1)
+#			new_style_bg.bg_color = Color(0, 0, 0, 0)
 	
-			new_style_fill.corner_radius_top_left = 0
-			new_style_fill.corner_radius_top_right = 0
-			new_style_fill.corner_radius_bottom_left = 0
-			new_style_fill.corner_radius_bottom_right = 0
-			new_style_fill.bg_color = Color(1, 1, 1, 1)
-			new_style_bg.bg_color = Color(0, 0, 0, 0)
-	
-			progress_bar.add_theme_stylebox_override("fill", new_style_fill)
-			progress_bar.add_theme_stylebox_override("background", new_style_bg)
+			progress_bar.add_theme_stylebox_override("fill", progress_bar_stylebox)
+			progress_bar.add_theme_stylebox_override("background", progress_bar_stylebox_empty)
 			progress_bar.set_fill_mode(3)
 			progress_bar.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 			progress_bar.show_percentage = false

@@ -1,7 +1,8 @@
 extends InventoryBase
 
 @export var empty_trash_time : float
-
+var progress_bar_stylebox : StyleBoxFlat = preload("res://resources/data/progress_bar.tres")
+var progress_bar_stylebox_empty : StyleBoxFlat = preload("res://resources/data/empty_stylebox.tres")
 var center_container : CenterContainer = CenterContainer.new()
 
 func _ready() -> void:
@@ -28,18 +29,19 @@ func set_up_inventory() -> void:
 			print_debug("AAA")
 
 func add_trashcan_properties(trashcan_timer : Timer, trashcan_progress_bar : ProgressBar) -> void:
-	var new_style_fill = trashcan_progress_bar.get_theme_stylebox("fill").duplicate()
-	var new_style_bg = trashcan_progress_bar.get_theme_stylebox("background").duplicate()
-	
-	new_style_fill.corner_radius_top_left = 0
-	new_style_fill.corner_radius_top_right = 0
-	new_style_fill.corner_radius_bottom_left = 0
-	new_style_fill.corner_radius_bottom_right = 0
-	new_style_fill.bg_color = Color(1, 1, 1, 1)
-	new_style_bg.bg_color = Color(0, 0, 0, 0)
-	
-	trashcan_progress_bar.add_theme_stylebox_override("fill", new_style_fill)
-	trashcan_progress_bar.add_theme_stylebox_override("background", new_style_bg)
+#	var new_style_fill = trashcan_progress_bar.get_theme_stylebox("fill").duplicate()
+#	var new_style_bg = trashcan_progress_bar.get_theme_stylebox("background").duplicate()
+#	
+#	new_style_fill.corner_radius_top_left = 0
+#	new_style_fill.corner_radius_top_right = 0
+#	new_style_fill.corner_radius_bottom_left = 0
+#	new_style_fill.corner_radius_bottom_right = 0
+#	new_style_fill.bg_color = Color(1, 1, 1, 1)
+#	new_style_bg.bg_color = Color(0, 0, 0, 0)
+#	
+	trashcan_progress_bar.add_theme_stylebox_override("fill", progress_bar_stylebox)
+	trashcan_progress_bar.add_theme_stylebox_override("background", progress_bar_stylebox_empty)
+
 	trashcan_progress_bar.set_fill_mode(3)
 	trashcan_progress_bar.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	trashcan_progress_bar.show_percentage = false

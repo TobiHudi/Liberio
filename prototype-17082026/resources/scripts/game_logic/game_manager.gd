@@ -1,6 +1,6 @@
 extends Node
 
-var points : int
+var player_points : int
 
 var selected_item : String
 var current_shelf_multiplier : float

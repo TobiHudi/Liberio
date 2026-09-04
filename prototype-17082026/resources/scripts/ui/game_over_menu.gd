@@ -11,5 +11,7 @@ func _ready() -> void:
 	
 func retry_button() -> void:
 	SceneManager.change_scene(retry_menu_path)
+	GameManager.selected_item = ""
 func main_menu() -> void:
 	SceneManager.change_scene(main_menu_path)
+	GameManager.selected_item = ""

@@ -15,3 +15,8 @@ script = ExtResource("1_o3amj")
 empty_trash_time = 1.0
 inventory_slots = 2
 inventory_columns = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=1415692458]
+layout_mode = 0
+offset_right = 4.0
+offset_bottom = 27.0

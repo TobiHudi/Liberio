@@ -22,8 +22,8 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -150.0
-offset_right = 150.0
+offset_left = -172.0
+offset_right = 128.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.6, 1.6)
@@ -49,17 +49,17 @@ path_to_textures = "res://assets/textures/products/"
 
 [node name="Inventory" parent="." unique_id=1592999086 instance=ExtResource("4_j4d2a")]
 layout_mode = 1
-anchors_preset = 0
+anchors_preset = 4
 anchor_left = 0.0
-anchor_top = 0.0
+anchor_top = 0.5
 anchor_right = 0.0
-anchor_bottom = 0.0
-offset_top = 0.0
-offset_bottom = 0.0
+anchor_bottom = 0.5
+offset_top = -120.0
+offset_bottom = -120.0
 grow_horizontal = 1
-grow_vertical = 1
-inventory_slots = 13
-inventory_columns = 1
+grow_vertical = 2
+inventory_slots = 20
+inventory_columns = 4
 
 [node name="Trashcan" parent="." unique_id=1680512811 instance=ExtResource("1_b6bv0")]
 layout_mode = 1
@@ -80,9 +80,3 @@ respawn_time = 2.0
 inventory_columns = 10
 
 [node name="GameLoopManager" parent="." unique_id=739497856 instance=ExtResource("6_b6bv0")]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.0
-grow_vertical = 1

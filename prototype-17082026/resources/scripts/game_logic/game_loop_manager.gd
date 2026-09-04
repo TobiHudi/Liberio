@@ -2,6 +2,7 @@
 extends Node
 
 @export var timer_label : Label
+@export var points_label : Label
 
 var timer : float
 var start_timer : bool = false
@@ -23,6 +24,7 @@ func timer_running() -> void:
 	while start_timer:
 		timer -= get_process_delta_time()
 		timer_label.text = str("%.1f" % timer)
+		points_label.text = str(GameManager.player_points)
 		if timer <= 0:
 			timer_label.text = "0"
 			start_timer = false

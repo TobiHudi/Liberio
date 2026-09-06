@@ -3,5 +3,6 @@ extends Node
 var player_points : int
 
 var selected_item : String
-var current_shelf_multiplier : float
+var chosen_shelf : String
+var current_points_multiplier : float
 var current_points : float

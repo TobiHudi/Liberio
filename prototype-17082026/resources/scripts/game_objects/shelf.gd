@@ -1,9 +1,9 @@
 extends InventoryBase
 
-@export var bonus_time : float
-@export var bonus_points : int
-@export var penalty_time : float
-@export var clear_shelf_time : float
+var bonus_time : float
+var bonus_points : int
+var penalty_time : float
+var clear_shelf_time : float
 @export var clear_slot_time : float
 @export var timer_and_item_container : Container
 
@@ -13,6 +13,7 @@ var label : Label = Label.new()
 var item_picture : TextureRect = TextureRect.new()
 
 func _ready() -> void:
+	set_up_resource_table_data()
 	self.scale = Vector2(1.6, 1.6)
 	empty_slot_texture = load("res://assets/textures/products/shelf_slot.png")
 	fallback_texture =load("res://assets/textures/products/shelf_slot.png")
@@ -96,3 +97,22 @@ func randomize_shelf() -> void:
 	print_debug(full_path)
 	item_picture.texture = load(full_path)
 	
+func set_up_resource_table_data() -> void:
+	var resource_table_size = ResourceTable.SHELVES.size()
+	GameManager.chosen_shelf = ResourceTable.SHELVES.keys()[randi() % resource_table_size]
+	var chosen_shelf = GameManager.chosen_shelf
+	var current_shelf = ResourceTable.SHELVES.get(chosen_shelf)
+	print_debug(chosen_shelf)
+	if current_shelf == null: 
+		print_debug("WRONG OR NO VALUE ASSIGNED")
+		bonus_time = 999
+		bonus_points = 999
+		penalty_time = 999
+		clear_shelf_time = 999
+		$CenterContainer/Panel/NinePatchRect.texture = null
+		return
+	bonus_time = current_shelf.reward_time
+	bonus_points = current_shelf.points
+	penalty_time = current_shelf.penalty_time
+	clear_shelf_time = current_shelf.clear_time
+	$CenterContainer/Panel/NinePatchRect.texture = current_shelf.texture

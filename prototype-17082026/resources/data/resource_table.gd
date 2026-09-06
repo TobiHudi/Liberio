@@ -15,7 +15,7 @@ const SHELVES : Dictionary = {
 		"clear_time" : 15.0,
 		"reward_time" : 10.0,
 		"penalty_time" : 10.0,
-		"point_multiplier" : 1.0,
+		"points" : 1,
 		"texture" : preload("res://assets/textures/debug/debug_border.png")
 	},
 	"oak_shelf": {
@@ -23,7 +23,7 @@ const SHELVES : Dictionary = {
 		"clear_time" : 10.0,
 		"reward_time" : 15.0,
 		"penalty_time" : 7.0,
-		"point_multiplier" : 1.0,
+		"points" : 1,
 		"texture" : preload("res://assets/textures/debug/debug_border.png")
 	},
 	"pine_shelf": {
@@ -31,7 +31,7 @@ const SHELVES : Dictionary = {
 		"clear_time" : 9.0,
 		"reward_time" : 17.0,
 		"penalty_time" : 10.0,
-		"point_multiplier" : 1.1,
+		"points" : 2,
 		"texture" : preload("res://assets/textures/debug/debug_border.png")
 	},
 	"refined_oak_shelf": {
@@ -39,7 +39,7 @@ const SHELVES : Dictionary = {
 		"clear_time" : 7.0,
 		"reward_time" : 20.0,
 		"penalty_time" : 6.0,
-		"point_multiplier" : 1.1,
+		"points" : 2,
 		"texture" : preload("res://assets/textures/debug/debug_border.png")
 	},
 	"refined_pine_shelf": {
@@ -47,7 +47,7 @@ const SHELVES : Dictionary = {
 		"clear_time" : 9.0,
 		"reward_time" : 23.0,
 		"penalty_time" : 9.0,
-		"point_multiplier" : 1.2,
+		"points" : 2,
 		"texture" : preload("res://assets/textures/debug/debug_border.png")
 	},
 }

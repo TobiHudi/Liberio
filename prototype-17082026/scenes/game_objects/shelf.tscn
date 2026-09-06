@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://cgtxf62ms35px"]
 
 [ext_resource type="Script" uid="uid://ephmtd5bhh61" path="res://resources/scripts/game_objects/shelf.gd" id="1_qyujd"]
-[ext_resource type="Texture2D" uid="uid://buvre36ak84i0" path="res://assets/textures/debug/debug_border.png" id="2_e1orj"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e1orj"]
 
@@ -19,10 +18,6 @@ offset_bottom = 13.5
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_qyujd")
-bonus_time = 10.0
-bonus_points = 10
-penalty_time = 3.0
-clear_shelf_time = 5.0
 timer_and_item_container = NodePath("CenterContainer/Panel/MarginContainer/VBoxContainer/TimerAndItemContainer")
 inventory_slots = 6
 inventory_columns = 2
@@ -44,7 +39,6 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_e1orj")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="CenterContainer/Panel" unique_id=1460978665]
 layout_mode = 2
-texture = ExtResource("2_e1orj")
 region_rect = Rect2(1, 2, 29, 28)
 patch_margin_left = 7
 patch_margin_top = 7

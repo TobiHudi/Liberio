@@ -35,7 +35,6 @@ theme_override_constants/separation = 150
 
 [node name="Shelf" parent="CenterContainer/HBoxContainer" unique_id=1567865377 instance=ExtResource("1_2vj2h")]
 layout_mode = 2
-clear_shelf_time = 3.0
 
 [node name="Shelf2" parent="CenterContainer/HBoxContainer" unique_id=1465600629 instance=ExtResource("1_2vj2h")]
 layout_mode = 2

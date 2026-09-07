@@ -121,7 +121,7 @@ func replace_item(slot : TextureButton, index : int) -> void:
 		on_item_failure(slot, index)
 		print_debug(get_selected_item().capitalize() + " kann nicht mit " + get_slot_id(slot).capitalize() + " getauscht werden!")
 
-func tween_animation(slot : TextureButton, animation_state: AnimationState) -> void:
+func tween_animation(slot : Control, animation_state: AnimationState) -> void:
 	
 	var tween : Tween = create_tween()
 	

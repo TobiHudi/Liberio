@@ -1,7 +1,7 @@
 extends InventoryBase
 
 @export var respawn_time : float
-var progress_bar_stylebox : StyleBoxFlat = preload("res://resources/data/progress_bar.tres")
+var progress_bar_stylebox : StyleBoxFlat = preload("res://resources/themes/progress_bar.tres")
 var progress_bar_stylebox_empty : StyleBoxFlat = preload("res://resources/data/empty_stylebox.tres")
 var to_spawn : Array[String] = ResourceTable.ITEMS
 var center_container : CenterContainer = CenterContainer.new()

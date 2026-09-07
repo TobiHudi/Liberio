@@ -1,7 +1,7 @@
 extends InventoryBase
 
 @export var empty_trash_time : float
-var progress_bar_stylebox : StyleBoxFlat = preload("res://resources/data/progress_bar.tres")
+var progress_bar_stylebox : StyleBoxFlat = preload("res://resources/themes/progress_bar.tres")
 var progress_bar_stylebox_empty : StyleBoxFlat = preload("res://resources/data/empty_stylebox.tres")
 var center_container : CenterContainer = CenterContainer.new()
 

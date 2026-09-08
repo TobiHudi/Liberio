@@ -11,43 +11,43 @@ const ITEMS : Array[String] = [
 
 const SHELVES : Dictionary = {
 	"dusty_shelf": {
-		"cost" : 0,
-		"clear_time" : 15.0,
+		"cost" : 0.0,
+		"clear_time" : 10.0,
 		"reward_time" : 10.0,
 		"penalty_time" : 10.0,
-		"points" : 1,
+		"points" : 10,
 		"texture" : preload("res://assets/textures/debug/debug_border.png")
 	},
 	"oak_shelf": {
-		"cost" : 10.0,
+		"cost" : 100.0,
 		"clear_time" : 10.0,
-		"reward_time" : 15.0,
-		"penalty_time" : 7.0,
-		"points" : 1,
+		"reward_time" : 10.0,
+		"penalty_time" : 10.0,
+		"points" : 50,
 		"texture" : preload("res://assets/textures/debug/debug_border.png")
 	},
 	"pine_shelf": {
-		"cost" : 10.0,
+		"cost" : 500,
 		"clear_time" : 9.0,
-		"reward_time" : 17.0,
+		"reward_time" : 14.0,
 		"penalty_time" : 10.0,
-		"points" : 2,
+		"points" : 100,
 		"texture" : preload("res://assets/textures/debug/debug_border.png")
 	},
 	"refined_oak_shelf": {
-		"cost" : 100,
-		"clear_time" : 7.0,
+		"cost" : 5000,
+		"clear_time" : 5.0,
 		"reward_time" : 20.0,
-		"penalty_time" : 6.0,
-		"points" : 2,
+		"penalty_time" : 5.0,
+		"points" : 1000,
 		"texture" : preload("res://assets/textures/debug/debug_border.png")
 	},
 	"refined_pine_shelf": {
-		"cost" : 100,
-		"clear_time" : 9.0,
-		"reward_time" : 23.0,
-		"penalty_time" : 9.0,
-		"points" : 2,
+		"cost" : 15000,
+		"clear_time" : 3.0,
+		"reward_time" : 25.0,
+		"penalty_time" : 3.0,
+		"points" : 5000,
 		"texture" : preload("res://assets/textures/debug/debug_border.png")
 	},
 }

@@ -11,19 +11,21 @@ var allowed_item : String
 var timer : Timer = Timer.new()
 var label : Label = Label.new()
 var item_picture : TextureRect = TextureRect.new()
-var points_label : Label = Label.new()
 
+var points_label_bg : TextureRect = TextureRect.new()
+var points_label : Label = Label.new()
 var chosen_shelf
 
 func _ready() -> void:
-	self.scale = Vector2(1.6, 1.6)
+	#Overwrites Textures
 	empty_slot_texture = load("res://assets/textures/products/shelf_slot.png")
 	fallback_texture =load("res://assets/textures/products/shelf_slot.png")
+	
+	self.scale = Vector2(1.6, 1.6)
 	super._ready()
 	set_up_resource_table_data_and_slot_attributes()
 	label.text = str("%.0f" % clear_shelf_time)
-	can_replace_item_slot = false
-	can_take_item_out_of_slot = false
+	
 	
 	
 	timer.one_shot = true
@@ -57,9 +59,11 @@ func check_shelf_status() -> void:
 		tweeny_pulse.set_loops()
 		tweeny_pulse.tween_property(slot_container, "modulate", Color(1, 1, 1, 0), 0.2).set_ease(Tween.EASE_IN)
 		tweeny_pulse.tween_property(slot_container, "modulate", Color(1, 1, 1, 1), 0.2).set_ease(Tween.EASE_OUT)
-		tween_animation(points_label, AnimationState.OUT)
+		
+		GameManager.player_points += bonus_points
+		tween_animation(points_label_bg, AnimationState.OUT)
 		await get_tree().create_timer(1).timeout
-		tween_animation(points_label, AnimationState.IN)
+		tween_animation(points_label_bg, AnimationState.IN)
 		#Startet den Timer für das Zurücksetzen des Regals
 		timer.start(clear_shelf_time)
 		await timer.timeout
@@ -83,7 +87,7 @@ func check_shelf_status() -> void:
 				
 				await get_tree().create_timer(clear_slot_time).timeout
 		EventBus.game_timer_update.emit(bonus_time)
-		GameManager.player_points += bonus_points
+		
 		
 		print_debug("ALLE SLOTS BEFÜLLT :D")
 
@@ -102,11 +106,16 @@ func randomize_shelf() -> void:
 	item_picture.texture = load(full_path)
 	
 func set_up_resource_table_data_and_slot_attributes() -> void:
+	
+	can_replace_item_slot = false
+	can_take_item_out_of_slot = false
+	
 	var resource_table_size = ResourceTable.SHELVES.size()
 	GameManager.chosen_shelf = ResourceTable.SHELVES.keys()[randi() % resource_table_size]
 	chosen_shelf = GameManager.chosen_shelf
 	var current_shelf = ResourceTable.SHELVES.get(chosen_shelf)
 	print_debug(chosen_shelf)
+	
 	if current_shelf == null: 
 		print_debug("WRONG OR NO VALUE ASSIGNED")
 		bonus_time = 999
@@ -121,12 +130,25 @@ func set_up_resource_table_data_and_slot_attributes() -> void:
 		clear_shelf_time = current_shelf.clear_time
 		$CenterContainer/Panel/NinePatchRect.texture = current_shelf.texture
 	
-	$CenterContainer.add_child(points_label)
-	print_debug("Label created")
-	points_label.pivot_offset_ratio = Vector2(0.5, 0.5)
-	points_label.text = str(current_shelf.points)
+	var points_label_center : CenterContainer  = CenterContainer.new()
+	add_child(points_label_center)
+	points_label_center.use_top_left = true
+	points_label_center.add_child(points_label_bg)
 	
-	tween_animation(points_label, AnimationState.IN)
+	points_label_bg.texture = load("res://assets/textures/icons/shelf_point_display.png")
+	points_label_bg.pivot_offset_ratio = Vector2(0.5, 0.5)	#To Display Animation correctly
+	points_label_bg.set_anchors_preset(Control.PRESET_CENTER)
+	points_label_bg.add_child(points_label)
+	
+	points_label.set_anchors_preset(Control.PRESET_FULL_RECT)
+	points_label.text = str(current_shelf.points)
+	points_label.set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER)
+	points_label.set_vertical_alignment(VERTICAL_ALIGNMENT_CENTER)
+	points_label.custom_minimum_size = points_label_bg.size
+	
 	for slot in slot_container.get_children():
 		if slot is TextureButton:
 			slot.button_down.connect(check_shelf_status)
+			
+	await get_tree().process_frame
+	tween_animation(points_label_bg, AnimationState.IN)

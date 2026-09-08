@@ -6,6 +6,7 @@ enum AnimationState {IN, OUT}
 func change_scene(scene_to_load : String):
 	on_scene_change_animation(AnimationState.IN)
 	await EventBus.animation_finished
+	await get_tree().create_timer(0.1).timeout
 	get_tree().change_scene_to_file(scene_to_load)
 	on_scene_change_animation(AnimationState.OUT)
 	

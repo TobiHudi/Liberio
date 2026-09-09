@@ -6,32 +6,36 @@ var fallback_texture = preload("res://assets/textures/products/fallback_texture.
 var tweeny : Tween
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	add_hand_properties()
+#adds all connections and properties for Hand.
+func add_hand_properties() -> void:
 	add_child(texture_rect)
-	EventBus.item_changed.connect(update_texture)
 	texture_rect.pivot_offset = texture_rect.size / 2
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	global_position = get_global_mouse_position() + Vector2(20, 20)
-
-func update_texture() -> void:
-	if tweeny and tweeny.is_valid():
-		tweeny.kill()
-		texture_rect.scale = Vector2.ONE
-		
+	EventBus.item_changed.connect(tweeny_animation)
+	EventBus.item_changed.connect(update_hand_texture)
+#Updates Hand texture, if it exists.
+func update_hand_texture() -> void:
 	var full_path = path_to_textures.path_join(GameManager.selected_item + ".png")
 	if full_path != path_to_textures + ".png":
 		if ResourceLoader.exists(full_path):
 			texture_rect.texture = load(full_path)
-			#print_debug("Updating Texture...")
-			start_pulsing_animation()
 		else: texture_rect.texture = fallback_texture
 	else:
 		texture_rect.texture = null
-		#print_debug("Texture wird entfernt...")
+#TextureRect mouse follow logic
+func _process(_delta: float) -> void:
+	global_position = get_global_mouse_position() + Vector2(20, 20)
 
-func start_pulsing_animation() -> void:
-	tweeny = create_tween()
-	tweeny.set_loops()
-	
-	tweeny.tween_property(texture_rect, "scale", Vector2(0.8, 0.8), 0.2)
-	tweeny.tween_property(texture_rect, "scale", Vector2(1, 1), 0.2)
+#Creates a pulsing animation for the held item.
+func tweeny_animation() -> void:
+	if GameManager.selected_item == "":
+		if tweeny and tweeny.is_valid():
+			tweeny.kill()
+		#Resets TextureRect size.
+		texture_rect.scale = Vector2.ONE
+	else:
+		#Plays animation.
+		tweeny = create_tween()
+		tweeny.set_loops()
+		tweeny.tween_property(texture_rect, "scale", Vector2(0.8, 0.8), 0.2)
+		tweeny.tween_property(texture_rect, "scale", Vector2(1, 1), 0.2)

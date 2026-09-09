@@ -170,3 +170,4 @@ func on_item_failure(slot : TextureButton, index : int) -> void:
 func get_slot_id(slot : TextureButton) -> String : return slot.get_meta("item_id")
 func get_selected_item() -> String: return GameManager.selected_item
 func get_full_slot_texture_path(slot : TextureButton) -> String: return path_to_textures.path_join(get_slot_id(slot) + ".png")
+func get_full_texture_path(texture : String) -> String: return path_to_textures.path_join(texture + ".png")

@@ -22,6 +22,10 @@ CheatScript="*uid://befbmafxc8gqh"
 ResourceTable="*uid://b3rx8ttu0jlqm"
 SceneManager="*uid://ds2urski53i4f"
 
+[debug]
+
+gdscript/warnings/unused_signal=0
+
 [display]
 
 window/stretch/mode="canvas_items"

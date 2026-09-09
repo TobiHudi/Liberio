@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://b3kga8ig37kws"]
+
+[ext_resource type="Script" uid="uid://beshixbah0q8o" path="res://resources/scripts/game_objects/item_randomizer.gd" id="1_8hm4w"]
+[ext_resource type="StyleBox" uid="uid://by06ugwg5uwks" path="res://resources/themes/progress_bar.tres" id="2_murke"]
+[ext_resource type="StyleBox" uid="uid://d1hnkfbp46yrt" path="res://resources/data/empty_stylebox.tres" id="3_ykfwl"]
+
+[node name="ItemRandomizer" type="Control" unique_id=70979117]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8hm4w")
+respawn_time = 3.0
+progress_bar_stylebox = ExtResource("2_murke")
+progress_bar_stylebox_empty = ExtResource("3_ykfwl")

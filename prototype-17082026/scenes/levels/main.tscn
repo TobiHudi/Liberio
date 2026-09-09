@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cgtxf62ms35px" path="res://scenes/game_objects/shelf.tscn" id="1_2vj2h"]
 [ext_resource type="PackedScene" uid="uid://ciu7p1oxta24x" path="res://scenes/game_objects/trashcan.tscn" id="1_b6bv0"]
-[ext_resource type="PackedScene" uid="uid://b3kga8ig37kws" path="res://scenes/game_logic/item_randomizer.tscn" id="2_y0acb"]
+[ext_resource type="PackedScene" uid="uid://b3kga8ig37kws" path="res://scenes/game_objects/item_randomizer.tscn" id="2_y0acb"]
 [ext_resource type="PackedScene" uid="uid://bbeoo854o7kyc" path="res://scenes/player/hand.tscn" id="3_y0acb"]
 [ext_resource type="PackedScene" uid="uid://by7u104iour6e" path="res://scenes/player/inventory.tscn" id="4_j4d2a"]
 [ext_resource type="PackedScene" uid="uid://c8qsntgu48ikm" path="res://scenes/game_logic/game_loop_manager.tscn" id="6_b6bv0"]
@@ -80,6 +80,7 @@ offset_left = -20.0
 offset_right = 20.0
 grow_vertical = 0
 respawn_time = 2.0
+inventory_slots = 10
 inventory_columns = 10
 
 [node name="GameLoopManager" parent="." unique_id=739497856 instance=ExtResource("6_b6bv0")]

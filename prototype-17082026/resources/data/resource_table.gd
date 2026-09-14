@@ -11,20 +11,20 @@ const ITEMS : Array[String] = [
 
 const SHELVES : Dictionary = {
 	"dusty_shelf": {
-		"cost" : 0.0,
+		"cost" : 0,
 		"clear_time" : 10.0,
 		"reward_time" : 10.0,
 		"penalty_time" : 10.0,
 		"points" : 10,
-		"texture" : preload("res://assets/textures/debug/debug_border.png")
+		"texture" : preload("res://assets/textures/bookshelves/dusty_shelf.png")
 	},
 	"oak_shelf": {
-		"cost" : 100.0,
+		"cost" : 100,
 		"clear_time" : 10.0,
 		"reward_time" : 10.0,
 		"penalty_time" : 10.0,
 		"points" : 50,
-		"texture" : preload("res://assets/textures/debug/debug_border.png")
+		"texture" : preload("res://assets/textures/bookshelves/oak_shelf.png")
 	},
 	"pine_shelf": {
 		"cost" : 500,
@@ -50,4 +50,12 @@ const SHELVES : Dictionary = {
 		"points" : 5000,
 		"texture" : preload("res://assets/textures/debug/debug_border.png")
 	},
+	"super_shelf": {
+		"cost" : 100000,
+		"clear_time" : 1.0,
+		"reward_time" : 60.0,
+		"penalty_time" : 0.0,
+		"points" : 10000,
+		"texture" : preload("res://assets/textures/debug/debug_border.png")
+	}
 }

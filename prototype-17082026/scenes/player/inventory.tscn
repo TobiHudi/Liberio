@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://nm4wuyesrolu" path="res://resources/scripts/game_logic/inventory_base.gd" id="1_gdbw8"]
 
-[node name="Inventory" type="Control" unique_id=1592999086 node_paths=PackedStringArray("slot_container")]
+[node name="Inventory" type="Control" unique_id=1592999086]
 layout_mode = 3
 anchors_preset = 7
 anchor_left = 0.5
@@ -14,7 +14,6 @@ offset_bottom = -122.0
 grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("1_gdbw8")
-slot_container = NodePath("HBoxContainer")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=940919083]
 layout_mode = 1

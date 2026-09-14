@@ -83,7 +83,7 @@ func take_item(slot : TextureButton, index : int) -> void:
 	print_debug("Take Item")
 	#Item ist im Inventar und wird in die Hand gesetzt.
 	if can_take_item_out_of_slot:
-		slot.set_meta("item_id", "")					#get_slot_id(slot) nicht möglich, da die Globale Variabel bearbeitet wird.
+		slot.set_meta("item_id", "")				#get_slot_id(slot) nicht möglich, da die Globale Variabel bearbeitet wird.
 		GameManager.selected_item = old_slot_id 	#get_selected_item() nicht möglich, da die Globale Variabel bearbeitet wird.
 		update_slot(slot)
 		#print_debug("Item wurde in die Hand gesetzt: ", temp_item_id)

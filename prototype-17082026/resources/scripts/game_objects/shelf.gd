@@ -121,7 +121,10 @@ func check_shelf_status() -> void:
 		for shelf_slot in slot_container.get_children():
 			if shelf_slot is TextureButton:
 				shelf_slot.set_mouse_filter(Control.MOUSE_FILTER_IGNORE)
-				
+		
+		#Emits GameTimerUpdate and adds the bonus time to the GameLoopManager
+		EventBus.game_timer_update.emit(bonus_time)
+		
 		#Plays a pulse animation while all slots are filled.
 		var tweeny_pulse : Tween = create_tween()
 		tweeny_pulse.set_loops()
@@ -140,13 +143,16 @@ func check_shelf_status() -> void:
 		#Updates EmptyShelfTimerLabel text if the timer is running.
 		while timer.time_left >= 0.01:
 			empty_shelf_timer_label.text = str("%.0f" % timer.time_left)
-			await get_tree().process_frame
+			#Awaits the next frame. is_inside_tree() hinders the game to crash, if the scene gets changed.
+			if is_inside_tree():
+				await get_tree().process_frame
+			else: return
 		await timer.timeout
 		
 		#Randomizes Shelf after Timer timeouts.
 		randomize_shelf()
 		
-		#Setzt den Label Text + Entfernt den Pulse Effekt.
+		#Sets Label Text + Removes Pulse effect.
 		empty_shelf_timer_label.text = str("%.0f" % clear_shelf_time)
 		
 		#Removes pulse effect and resets color transparency
@@ -165,8 +171,5 @@ func check_shelf_status() -> void:
 				
 				#A simple Timer for the loop.
 				await get_tree().create_timer(clear_slot_time).timeout
-		
-		#Emits GameTimerUpdate and adds the bonus time to the GameLoopManager
-		EventBus.game_timer_update.emit(bonus_time)
 		
 		push_warning("Alle Slots Befüllt")

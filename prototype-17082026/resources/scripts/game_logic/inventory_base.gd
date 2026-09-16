@@ -13,7 +13,6 @@ var failure_texture = preload("res://assets/textures/icons/failure_cross.png")
 
 var slot_container : GridContainer = GridContainer.new()
 
-
 enum AnimationState {IN, OUT, FAILURE}
 
 var can_replace_item_slot : bool = true

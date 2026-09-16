@@ -10,9 +10,12 @@ config_version=5
 
 [application]
 
-config/name="prototype_17082026"
+config/name="liberio"
+config/description="Sort shelves, earn points, buy better shelves."
+config/version="INDEV"
 run/main_scene="uid://3oma21v7gtn0"
 config/features=PackedStringArray("4.7", "GL Compatibility")
+boot_splash/use_filter=false
 
 [autoload]
 

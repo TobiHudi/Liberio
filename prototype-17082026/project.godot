@@ -24,6 +24,7 @@ GameManager="*uid://dnkxfcp664mrr"
 CheatScript="*uid://befbmafxc8gqh"
 ResourceTable="*uid://b3rx8ttu0jlqm"
 SceneManager="*uid://ds2urski53i4f"
+PlayerUi="*uid://bvfq7l82dp8ae"
 
 [debug]
 

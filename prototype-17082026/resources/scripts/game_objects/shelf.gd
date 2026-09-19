@@ -8,7 +8,7 @@ var penalty_time : float
 var clear_shelf_time : float
 var clear_slot_time : float = 0.05
 var allowed_item : String
-var chosen_shelf
+var selected_shelf : String = GameManager.selected_shelf
 
 var timer : Timer = Timer.new()
 var empty_shelf_timer_label : Label = Label.new()
@@ -49,13 +49,12 @@ func set_up_shelf() -> void:
 	
 	#Gets ResourceTable Shelves (Will rather search for a Shelf that is currently selected from the Shop)
 	var resource_table_size = ResourceTable.SHELVES.size()
-	GameManager.chosen_shelf = ResourceTable.SHELVES.keys()[randi() % resource_table_size]
-	chosen_shelf = GameManager.chosen_shelf
-	var current_shelf = ResourceTable.SHELVES.get(chosen_shelf)
-	print_debug(chosen_shelf)
+	#GameManager.selected_shelf = ResourceTable.SHELVES.keys()[randi() % resource_table_size]
+	var current_shelf = ResourceTable.SHELVES.get(selected_shelf)
+	print_debug(selected_shelf)
 	
 	#Sets ResourceTable properties to the Shelf.
-	if current_shelf == null: 
+	if selected_shelf == "": 
 		print_debug("WRONG OR NO VALUE ASSIGNED")
 		bonus_time = 999
 		bonus_points = 999
@@ -65,8 +64,10 @@ func set_up_shelf() -> void:
 	else:
 		bonus_time = current_shelf.reward_time
 		bonus_points = current_shelf.points
+		points_label.text = str(current_shelf.points)
 		penalty_time = current_shelf.penalty_time
 		clear_shelf_time = current_shelf.clear_time
+		
 		$CenterContainer/Panel/NinePatchRect.texture = current_shelf.texture
 	
 	#Adds ItemPicture and EmptyShelfTimerLabel
@@ -91,7 +92,6 @@ func set_up_shelf() -> void:
 	points_label_bg.add_child(points_label)
 	
 	points_label.set_anchors_preset(Control.PRESET_FULL_RECT)
-	points_label.text = str(current_shelf.points)
 	points_label.set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER)
 	points_label.set_vertical_alignment(VERTICAL_ALIGNMENT_CENTER)
 	points_label.custom_minimum_size = points_label_bg.size

@@ -36,6 +36,7 @@ vertical_alignment = 1
 
 [node name="Button" type="Button" parent="." unique_id=2010908549]
 layout_mode = 1
-offset_right = 8.0
-offset_bottom = 8.0
+offset_top = 85.0
+offset_right = 45.0
+offset_bottom = 116.0
 text = "Back"

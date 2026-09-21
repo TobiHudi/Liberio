@@ -5,6 +5,10 @@ extends InventoryBase
 @export var progress_bar_stylebox_empty : StyleBoxFlat
 
 func _ready() -> void:
+	empty_slot_texture = load("res://assets/textures/inventory_slots/trashcan_slot.png")
+	
+	inventory_columns = GameManager.trashcan_amount
+	inventory_slots = GameManager.trashcan_amount
 	super._ready()
 	set_up_trashcan()
 #Overwrites current add_container() function.
@@ -12,7 +16,7 @@ func add_container() -> void:
 	var center_container : CenterContainer = CenterContainer.new()
 	add_child(center_container)
 	center_container.use_top_left = true
-	center_container.set_position(Vector2(0, -60))
+	center_container.set_position(Vector2(0, -20))
 	center_container.add_child(slot_container)
 #Sets up Trashcan properties.
 func set_up_trashcan() -> void:
@@ -51,7 +55,9 @@ func trash_item(slot : TextureButton, trashcan_timer : Timer, trashcan_progress_
 		trashcan_timer.start(empty_trash_time)
 		while trashcan_timer.time_left >= 0.01:
 			trashcan_progress_bar.value = empty_trash_time - trashcan_timer.time_left
-			await get_tree().process_frame
+			if is_inside_tree():
+				await get_tree().process_frame
+			else: return
 		await trashcan_timer.timeout
 		
 		#Resets ProgressBar and SlotId values.

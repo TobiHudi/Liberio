@@ -11,7 +11,7 @@ var is_timer_finished : bool = false
 func _ready() -> void:
 	EventBus.game_timer_start.connect(timer_started)
 	EventBus.game_timer_update.connect(timer_update)
-	timer_started(30)
+	timer_started(30 + GameManager.start_timer)
 	
 func timer_started(new_time : float) -> void:
 	timer = new_time

@@ -17,5 +17,3 @@ script = ExtResource("1_o3amj")
 empty_trash_time = 1.0
 progress_bar_stylebox = ExtResource("2_sdyo4")
 progress_bar_stylebox_empty = ExtResource("3_8nk1j")
-inventory_slots = 2
-inventory_columns = 1

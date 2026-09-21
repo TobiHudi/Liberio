@@ -18,8 +18,6 @@ offset_bottom = 13.5
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_qyujd")
-inventory_slots = 6
-inventory_columns = 2
 
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=1334496777]
 layout_mode = 1

@@ -18,10 +18,12 @@ var points_label : Label = Label.new()
 
 func _ready() -> void:
 	#Overwrites Textures
-	empty_slot_texture = load("res://assets/textures/products/shelf_slot.png")
-	fallback_texture =load("res://assets/textures/products/shelf_slot.png")
-	
-	self.scale = Vector2(1.6, 1.6)
+	empty_slot_texture = load("res://assets/textures/inventory_slots/shelf_slot.png")
+	fallback_texture =load("res://assets/textures/inventory_slots/shelf_slot.png")
+	#Sets inventory slots and columns.
+	inventory_columns = 2
+	inventory_slots = 6
+	$CenterContainer.scale = Vector2(1.6, 1.6)
 	super._ready()
 	randomize_shelf()
 	set_up_shelf()
@@ -47,9 +49,7 @@ func set_up_shelf() -> void:
 		if slot is TextureButton:
 			slot.button_down.connect(check_shelf_status)
 	
-	#Gets ResourceTable Shelves (Will rather search for a Shelf that is currently selected from the Shop)
-	var resource_table_size = ResourceTable.SHELVES.size()
-	#GameManager.selected_shelf = ResourceTable.SHELVES.keys()[randi() % resource_table_size]
+	#Creates a String that will hold the selected shelf.
 	var current_shelf = ResourceTable.SHELVES.get(selected_shelf)
 	print_debug(selected_shelf)
 	
@@ -63,8 +63,8 @@ func set_up_shelf() -> void:
 		$CenterContainer/Panel/NinePatchRect.texture = null
 	else:
 		bonus_time = current_shelf.reward_time
-		bonus_points = current_shelf.points
-		points_label.text = str(current_shelf.points)
+		bonus_points = current_shelf.points * GameManager.points_multiplier
+		points_label.text = str(bonus_points)
 		penalty_time = current_shelf.penalty_time
 		clear_shelf_time = current_shelf.clear_time
 		

@@ -3,12 +3,13 @@
 class_name InventoryBase
 extends Control
 
+#Edit these two variables to get zour inventory size!
+var inventory_slots : int
+var inventory_columns : int
 
-@export var inventory_slots : int
-@export var inventory_columns : int
 var path_to_textures = "res://assets/textures/products/"
 var fallback_texture = preload("res://assets/textures/products/fallback_texture.png")
-var empty_slot_texture = preload("res://assets/textures/products/empty_slot.png")
+var empty_slot_texture = preload("res://assets/textures/inventory_slots/empty_slot.png")
 var failure_texture = preload("res://assets/textures/icons/failure_cross.png")
 
 var slot_container : GridContainer = GridContainer.new()

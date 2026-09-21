@@ -1,20 +1,7 @@
 [gd_scene format=3 uid="uid://ds2urski53i4f"]
 
 [ext_resource type="Script" uid="uid://bnaymfqg37yxn" path="res://resources/scripts/game_logic/scene_manager.gd" id="1_l7odo"]
-[ext_resource type="Texture2D" uid="uid://og3hrshrumrh" path="res://assets/textures/icons/scene_transition_bg.png" id="2_o028q"]
 
-[node name="SceneManager" type="CanvasLayer" unique_id=429518432 node_paths=PackedStringArray("item_to_animate")]
+[node name="SceneManager" type="CanvasLayer" unique_id=429518432]
 layer = 2
 script = ExtResource("1_l7odo")
-item_to_animate = NodePath("TextureRect")
-
-[node name="TextureRect" type="TextureRect" parent="." unique_id=1651922904]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -652.0
-offset_bottom = -652.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("2_o028q")

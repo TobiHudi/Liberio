@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://by7u104iour6e"]
 
-[ext_resource type="Script" uid="uid://nm4wuyesrolu" path="res://resources/scripts/game_logic/inventory_base.gd" id="1_gdbw8"]
+[ext_resource type="Script" uid="uid://bl6k2qy8188bf" path="res://resources/scripts/player/inventory.gd" id="1_gdbw8"]
 
 [node name="Inventory" type="Control" unique_id=1592999086]
 layout_mode = 3
@@ -9,18 +9,6 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_top = -122.0
-offset_bottom = -122.0
 grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("1_gdbw8")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=940919083]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -20.0
-offset_right = 20.0
-offset_bottom = 40.0
-grow_horizontal = 2

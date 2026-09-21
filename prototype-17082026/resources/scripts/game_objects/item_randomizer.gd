@@ -7,9 +7,11 @@ extends InventoryBase
 var item_to_spawn : Array[String] = ResourceTable.ITEMS
 
 func _ready() -> void:
+	inventory_columns = GameManager.item_randomizer_amount
+	inventory_slots = GameManager.item_randomizer_amount
 	#Overwrites Textures
-	empty_slot_texture = load("res://assets/textures/products/inventory_slot.png")
-	fallback_texture =load("res://assets/textures/products/inventory_slot.png")
+	empty_slot_texture = load("res://assets/textures/inventory_slots/inventory_slot.png")
+	fallback_texture =load("res://assets/textures/inventory_slots/inventory_slot.png")
 	super._ready()
 	set_up_slot()
 #Overwrites current add_container() function.
@@ -17,7 +19,7 @@ func add_container() -> void:
 	var center_container : CenterContainer = CenterContainer.new()
 	add_child(center_container)
 	center_container.use_top_left = true
-	center_container.set_position(Vector2(0, -20))   #Currently Hard-Coded
+	center_container.set_position(Vector2(0, -60))
 	center_container.add_child(slot_container)
 #Sets Up Slot textures and properties.
 func set_up_slot() -> void:

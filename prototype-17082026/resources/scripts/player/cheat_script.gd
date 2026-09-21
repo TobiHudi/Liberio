@@ -11,3 +11,5 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("cheat_start_game"):
 		EventBus.game_timer_start.emit(20.0)
 	
+	if event.is_action_pressed("cheat_add_money"):
+		GameManager.player_points = 10000

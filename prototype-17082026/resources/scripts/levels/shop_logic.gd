@@ -15,7 +15,6 @@ enum AnimationState { button_press_animation, success_animation, failure_animati
 signal update_selected_shelf
 
 func _ready() -> void:
-	GameManager.player_points = 10000
 	back_button.button_down.connect(go_back_to_main_menu)
 	set_up_tabs_menu()
 	set_up_shop()
@@ -210,6 +209,7 @@ func on_upgrade_button_press(upgrade, item_panel_container, item_button, price_l
 			else:
 				price_label.text = "Sold Out!"
 				item_button.disabled = true
+			EventBus.update_upgrades.emit()
 		else: tween_animation(AnimationState.failure_animation, item_panel_container, item_button)
 
 func tween_animation(animation_state : AnimationState, item_container : Container, item_button : Button) -> void:

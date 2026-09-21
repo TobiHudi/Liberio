@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://ciu7p1oxta24x"]
 
 [ext_resource type="Script" uid="uid://dpxg6ir7pxi10" path="res://resources/scripts/game_objects/trashcan.gd" id="1_o3amj"]
+[ext_resource type="StyleBox" uid="uid://by06ugwg5uwks" path="res://resources/themes/progress_bar.tres" id="2_sdyo4"]
+[ext_resource type="StyleBox" uid="uid://d1hnkfbp46yrt" path="res://resources/data/empty_stylebox.tres" id="3_8nk1j"]
 
 [node name="Trashcan" type="Control" unique_id=1680512811]
 layout_mode = 3
@@ -13,5 +15,5 @@ grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("1_o3amj")
 empty_trash_time = 1.0
-inventory_slots = 2
-inventory_columns = 1
+progress_bar_stylebox = ExtResource("2_sdyo4")
+progress_bar_stylebox_empty = ExtResource("3_8nk1j")

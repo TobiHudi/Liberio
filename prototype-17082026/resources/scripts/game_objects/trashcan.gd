@@ -1,70 +1,70 @@
 extends InventoryBase
 
 @export var empty_trash_time : float
-
-var center_container : CenterContainer = CenterContainer.new()
+@export var progress_bar_stylebox : StyleBoxFlat
+@export var progress_bar_stylebox_empty : StyleBoxFlat
 
 func _ready() -> void:
+	empty_slot_texture = load("res://assets/textures/inventory_slots/trashcan_slot.png")
+	
+	inventory_columns = GameManager.trashcan_amount
+	inventory_slots = GameManager.trashcan_amount
 	super._ready()
-	set_up_inventory()
-
-func set_up_inventory() -> void:
+	set_up_trashcan()
+#Overwrites current add_container() function.
+func add_container() -> void:
+	var center_container : CenterContainer = CenterContainer.new()
+	add_child(center_container)
+	center_container.use_top_left = true
+	center_container.set_position(Vector2(0, -20))
+	center_container.add_child(slot_container)
+#Sets up Trashcan properties.
+func set_up_trashcan() -> void:
+	#Sets up InventorySlot Abilities.
 	can_replace_item_slot = false
 	can_take_item_out_of_slot = false
 	
-	center_container.use_top_left = true
-	await get_tree().process_frame
-	center_container.set_position(Vector2(0, -slot_container.size.y * 2.5))
-	
+	#Gets all slots and applies properties to the slots.
 	for trash_slot in slot_container.get_children():
 		if trash_slot is TextureButton:
+			#Adds a Timer and ProgressBar to every Slot.
 			var trashcan_timer : Timer = Timer.new()
 			var trashcan_progress_bar : ProgressBar = ProgressBar.new()
 			trash_slot.add_child(trashcan_timer)
 			trash_slot.add_child(trashcan_progress_bar)
+			trashcan_progress_bar.add_theme_stylebox_override("fill", progress_bar_stylebox)
+			trashcan_progress_bar.add_theme_stylebox_override("background", progress_bar_stylebox_empty)
+			trashcan_progress_bar.set_fill_mode(3)
+			trashcan_progress_bar.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+			trashcan_progress_bar.show_percentage = false
+			trashcan_progress_bar.set_mouse_filter(Control.MOUSE_FILTER_IGNORE)
+			trashcan_progress_bar.max_value = empty_trash_time
+			trashcan_timer.one_shot = true
 			
+			#Connects TrashItem to slot button.
 			trash_slot.button_down.connect(trash_item.bind(trash_slot, trashcan_timer, trashcan_progress_bar))
-			add_trashcan_properties(trashcan_timer, trashcan_progress_bar)
-			print_debug("AAA")
-
-func add_trashcan_properties(trashcan_timer : Timer, trashcan_progress_bar : ProgressBar) -> void:
-	var new_style_fill = trashcan_progress_bar.get_theme_stylebox("fill").duplicate()
-	var new_style_bg = trashcan_progress_bar.get_theme_stylebox("background").duplicate()
-	
-	new_style_fill.corner_radius_top_left = 0
-	new_style_fill.corner_radius_top_right = 0
-	new_style_fill.corner_radius_bottom_left = 0
-	new_style_fill.corner_radius_bottom_right = 0
-	new_style_fill.bg_color = Color(1, 1, 1, 1)
-	new_style_bg.bg_color = Color(0, 0, 0, 0)
-	
-	trashcan_progress_bar.add_theme_stylebox_override("fill", new_style_fill)
-	trashcan_progress_bar.add_theme_stylebox_override("background", new_style_bg)
-	trashcan_progress_bar.set_fill_mode(3)
-	trashcan_progress_bar.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	trashcan_progress_bar.show_percentage = false
-	trashcan_progress_bar.set_mouse_filter(Control.MOUSE_FILTER_IGNORE)
-	trashcan_progress_bar.max_value = empty_trash_time
-	
-	trashcan_timer.one_shot = true
-
+#Resets all values of slot.
 func trash_item(slot : TextureButton, trashcan_timer : Timer, trashcan_progress_bar : ProgressBar) -> void:
+	#Returns code if the TrashcanTimer is running
 	if !trashcan_timer.is_stopped():
 		return
-		
+	
+	#Empties Trash if slot is filled.
 	if get_slot_id(slot) != "":
+		#Updates ProgressBar while Timer is running
 		trashcan_timer.start(empty_trash_time)
 		while trashcan_timer.time_left >= 0.01:
 			trashcan_progress_bar.value = empty_trash_time - trashcan_timer.time_left
-			await get_tree().process_frame
+			if is_inside_tree():
+				await get_tree().process_frame
+			else: return
 		await trashcan_timer.timeout
+		
+		#Resets ProgressBar and SlotId values.
 		trashcan_progress_bar.value = 0
 		slot.set_meta("item_id", "")
 		tween_animation(slot, AnimationState.IN)
 		await tween_animation(slot, AnimationState.IN)
 		update_slot_ui(slot)
 		tween_animation(slot, AnimationState.OUT)
-
-func add_container() -> void:
-	add_child(center_container)
-	center_container.add_child(slot_container)
+	else: print_debug("Slot is empty.")

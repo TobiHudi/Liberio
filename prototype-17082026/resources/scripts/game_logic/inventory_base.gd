@@ -3,12 +3,14 @@
 class_name InventoryBase
 extends Control
 
+#Edit these two variables to get zour inventory size!
+var inventory_slots : int
+var inventory_columns : int
 
-@export var inventory_slots : int = 5
-@export var inventory_columns : int
 var path_to_textures = "res://assets/textures/products/"
 var fallback_texture = preload("res://assets/textures/products/fallback_texture.png")
-var empty_slot_texture = preload("res://assets/textures/products/empty_slot.png")
+var empty_slot_texture = preload("res://assets/textures/inventory_slots/empty_slot.png")
+var failure_texture = preload("res://assets/textures/icons/failure_cross.png")
 
 var slot_container : GridContainer = GridContainer.new()
 
@@ -81,7 +83,7 @@ func take_item(slot : TextureButton, index : int) -> void:
 	print_debug("Take Item")
 	#Item ist im Inventar und wird in die Hand gesetzt.
 	if can_take_item_out_of_slot:
-		slot.set_meta("item_id", "")					#get_slot_id(slot) nicht möglich, da die Globale Variabel bearbeitet wird.
+		slot.set_meta("item_id", "")				#get_slot_id(slot) nicht möglich, da die Globale Variabel bearbeitet wird.
 		GameManager.selected_item = old_slot_id 	#get_selected_item() nicht möglich, da die Globale Variabel bearbeitet wird.
 		update_slot(slot)
 		#print_debug("Item wurde in die Hand gesetzt: ", temp_item_id)
@@ -119,7 +121,7 @@ func replace_item(slot : TextureButton, index : int) -> void:
 		on_item_failure(slot, index)
 		print_debug(get_selected_item().capitalize() + " kann nicht mit " + get_slot_id(slot).capitalize() + " getauscht werden!")
 
-func tween_animation(slot : TextureButton, animation_state: AnimationState) -> void:
+func tween_animation(slot : Control, animation_state: AnimationState) -> void:
 	
 	var tween : Tween = create_tween()
 	
@@ -138,13 +140,34 @@ func tween_animation(slot : TextureButton, animation_state: AnimationState) -> v
 			
 			tween.tween_property(slot, "modulate", Color(0, 0, 0, 1), 0.1).set_ease(Tween.EASE_IN_OUT)
 			tween.tween_property(slot, "modulate", Color(1, 1, 1, 1), 0.1).set_ease(Tween.EASE_IN_OUT)
-
+func create_failure_particles(slot : TextureButton) -> void:
+	var cpu_particles : CPUParticles2D
+	if slot.get_child(0) is not CPUParticles2D:
+		cpu_particles = CPUParticles2D.new()
+		var curve : Curve = Curve.new()
+		slot.add_child(cpu_particles)
+		curve.add_point(Vector2(0, 0))
+		curve.add_point(Vector2(0.1, 1))
+		curve.add_point(Vector2(0.9, 1))
+		curve.add_point(Vector2(1, 0))
+		cpu_particles.position = slot.size / 2
+		cpu_particles.amount = 1
+		cpu_particles.one_shot = true
+		cpu_particles.gravity = Vector2(0, 0)
+		cpu_particles.texture = failure_texture
+		cpu_particles.emitting = true
+		cpu_particles.set_param_curve(CPUParticles2D.PARAM_SCALE, curve)
+	else:
+		cpu_particles.emitting = true
+		
 func on_item_accept(_item_id : String, _index : int) -> bool:
 	return true 
 func on_item_failure(slot : TextureButton, index : int) -> void:
 	print_debug(get_slot_id(slot).capitalize() + " ist falsch! Slot Nr. " + str(index))
 	tween_animation(slot, AnimationState.FAILURE)
+	create_failure_particles(slot)
 
 func get_slot_id(slot : TextureButton) -> String : return slot.get_meta("item_id")
 func get_selected_item() -> String: return GameManager.selected_item
 func get_full_slot_texture_path(slot : TextureButton) -> String: return path_to_textures.path_join(get_slot_id(slot) + ".png")
+func get_full_texture_path(texture : String) -> String: return path_to_textures.path_join(texture + ".png")

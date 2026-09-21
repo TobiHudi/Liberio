@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://ds2urski53i4f"]
+
+[ext_resource type="Script" uid="uid://bnaymfqg37yxn" path="res://resources/scripts/game_logic/scene_manager.gd" id="1_l7odo"]
+
+[node name="SceneManager" type="CanvasLayer" unique_id=429518432]
+layer = 2
+script = ExtResource("1_l7odo")

@@ -5,7 +5,7 @@
 [sub_resource type="LabelSettings" id="LabelSettings_fsby3"]
 font_size = 24
 
-[node name="MainMenu" type="Control" unique_id=90050313 node_paths=PackedStringArray("start_button", "shop_button")]
+[node name="MainMenu" type="Control" unique_id=90050313 node_paths=PackedStringArray("start_button", "shop_button", "settings_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -17,6 +17,8 @@ start_button = NodePath("PanelContainer/MarginContainer/VBoxContainer/StartGame"
 game_dir = "res://scenes/levels/main.tscn"
 shop_button = NodePath("PanelContainer/MarginContainer/VBoxContainer/Shelves")
 shop_dir = "res://scenes/levels/shop.tscn"
+settings_button = NodePath("PanelContainer/MarginContainer/VBoxContainer/Settings")
+settings_dir = "res://scenes/levels/settings.tscn"
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=1794806733]
 layout_mode = 1

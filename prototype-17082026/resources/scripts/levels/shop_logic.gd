@@ -197,7 +197,6 @@ func on_upgrade_button_press(upgrade, item_panel_container, item_button, price_l
 	for item in upgrade_list:
 		if item.has_upgrade == true:
 			current_level += 1
-	await get_tree().process_frame
 	if current_level <= max_level:
 		if get_current_points() >= get_upgrade(upgrade, current_level).cost:
 			print(str(current_level) + " = " + str(max_level))
